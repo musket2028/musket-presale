@@ -1,45 +1,80 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MUSKET - The Future Is Here</title>
-    <link rel="stylesheet" href="style.css">
-    <script defer src="script.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MUSKET – Buy the Future Today!</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <header>
-        <img src="banner.jpg" alt="MUSKET Banner" class="banner">
-        <h1 class="main-title">MUSKET - The Meme Coin War Has Begun</h1>
-        <p class="tagline">You’re not just buying a token — you’re buying the future.</p>
-    </header>
-    <section class="token-info">
-        <h2>Token Details</h2>
-        <ul>
-            <li><strong>Name:</strong> Musk vs Trump</li>
-            <li><strong>Symbol:</strong> MUSKET</li>
-            <li><strong>Total Supply:</strong> 1,000,000,000</li>
-            <li><strong>Contract Address:</strong> <span id="contract">0x293E5dc7405FA8f4155Af6353542Ed00426A979a</span> <button onclick="copyContract()">📋</button></li>
-        </ul>
-    </section>
-    <section class="converter">
-        <h2>BNB to MUSKET Converter</h2>
-        <input type="number" id="bnbAmount" placeholder="Enter BNB amount">
-        <p>You'll receive: <span id="musketResult">0</span> MUSKET</p>
-    </section>
-    <section class="roadmap">
-        <h2>Roadmap</h2>
-        <ol>
-            <li>🔥 Launch Presale</li>
-            <li>🔐 Liquidity Lock</li>
-            <li>📈 Listings on PancakeSwap</li>
-            <li>🚀 Influencer Marketing Push</li>
-            <li>🌕 Viral Growth and Community Expansion</li>
-        </ol>
-    </section>
-    <footer>
-        <button onclick="connectWallet()">🔗 Buy MUSKET with MetaMask</button>
-        <p>Verified on BscScan</p>
-    </footer>
+  <header class="hero">
+    <div class="container">
+      <img src="musket-banner.jpg" alt="Musket Banner" class="banner" />
+      <h1>MUSKET – Buy the Future Today!</h1>
+      <p class="subtitle">You're not just buying a token — you're buying the future.</p>
+      <div class="cta">
+        <button>Connect Wallet</button>
+        <button class="buy">Buy MUSKET</button>
+      </div>
+      <div class="rate">1 BNB = 500,000 MUSKET</div>
+    </div>
+  </header>
+
+  <section class="about">
+    <h2>About</h2>
+    <p>Name: MUSKET | Symbol: PMUSK</p>
+    <p>Contract Address: <span id="contract">0x293E5dc7405FA8f4155Af6353542Ed00426A979a</span>
+    <button onclick="copyAddress()">Copy</button></p>
+    <a href="https://bscscan.com/address/0x293E5dc7405FA8f4155Af6353542Ed00426A979a" target="_blank">View on BscScan</a>
+  </section>
+
+  <section class="tokenomics">
+    <h2>Tokenomics & Presale</h2>
+    <ul>
+      <li>Total Supply: 1,000,000,000 MUSKET</li>
+      <li>Presale: 800,000,000 MUSKET</li>
+      <li>Team: 200,000,000 MUSKET</li>
+    </ul>
+  </section>
+
+  <section class="converter">
+    <h2>BNB to MUSKET Converter</h2>
+    <input type="number" id="bnbInput" placeholder="Enter BNB amount" oninput="convert()" />
+    <p>You’ll receive: <span id="musketOutput">0</span> MUSKET</p>
+  </section>
+
+  <section class="roadmap">
+    <h2>Roadmap</h2>
+    <div class="phases">
+      <div class="phase">Presale</div>
+      <div class="phase">Listing on Exchanges</div>
+      <div class="phase">Activate Liquidity</div>
+      <div class="phase">Marketing & Community</div>
+    </div>
+  </section>
+
+  <section class="community">
+    <h2>Join Our Community</h2>
+    <a href="https://t.me/muskvsTrumpCoin" target="_blank">Telegram</a> |
+    <a href="#">Twitter</a> |
+    <a href="#">Instagram</a> |
+    <a href="#">Whitepaper</a>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 MUSKET. All rights reserved. | Privacy Policy | Terms</p>
+  </footer>
+
+  <script>
+    function convert() {
+      const bnb = parseFloat(document.getElementById('bnbInput').value) || 0;
+      document.getElementById('musketOutput').innerText = bnb * 500000;
+    }
+    function copyAddress() {
+      navigator.clipboard.writeText(document.getElementById('contract').innerText);
+      alert('Contract address copied!');
+    }
+  </script>
 </body>
 </html>
