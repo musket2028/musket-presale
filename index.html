@@ -4,55 +4,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MUSKET Presale</title>
-    <link href="style.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+    <title>MUSKET - Musk vs Trump</title>
 </head>
-<body>
-    <header>
-        <img src="logo.png" alt="MUSKET Logo" class="logo">
-        <h1>MUSKET - The Meme Revolution</h1>
-        <p class="tagline">You’re not just buying a token — you’re buying the future.</p>
-    </header>
-
-    <section class="presale-info">
-        <h2>Token Information</h2>
-        <p><strong>Name:</strong> Musk vs Trump</p>
-        <p><strong>Symbol:</strong> MUSKET</p>
-        <p><strong>Contract Address:</strong> 
-            <span id="contract">0x293E5dc7405FA8f4155Af6353542Ed00426A979a</span>
-            <button onclick="copyAddress()">Copy</button>
-        </p>
-    </section>
-
-    <section class="converter">
-        <h2>BNB to MUSKET Converter</h2>
-        <input type="number" id="bnbInput" placeholder="Enter BNB amount" oninput="convert()">
-        <p>You will receive: <span id="musketOutput">0</span> MUSKET</p>
-    </section>
-
-    <section class="buy-section">
-        <button onclick="connectWallet()">Buy with MetaMask</button>
-        <p class="note">Send BNB directly to the contract address above to receive MUSKET automatically.</p>
-        <p class="verified">Contract Verified on BscScan</p>
-    </section>
-
-    <section class="roadmap">
-        <h2>Roadmap</h2>
-        <ul>
-            <li><strong>Phase 1:</strong> Token Launch & Presale</li>
-            <li><strong>Phase 2:</strong> Community Building & Listings on CoinMarketCap/CoinGecko</li>
-            <li><strong>Phase 3:</strong> Listing on PancakeSwap</li>
-            <li><strong>Phase 4:</strong> Marketing & Partnerships</li>
-            <li><strong>Phase 5:</strong> CEX Listings & Meme Expansion</li>
-        </ul>
-    </section>
-
-    <footer>
-        <p>&copy; 2025 MUSKET Coin. All rights reserved.</p>
-        <p><a href="https://t.me/muskvsTrumpCoin" target="_blank">Telegram</a> | <a href="https://x.com/muskvs_trump" target="_blank">Twitter</a></p>
-    </footer>
-
-    <script src="script.js"></script>
+<body style="background-color:#0c0d23;color:white;font-family:sans-serif;text-align:center;">
+    <img src="banner.png" alt="MUSKET Banner" style="width:100%;max-width:1200px;">
+    <h1 style="color:#ff3131;">You’re not just buying a token — you’re buying the future.</h1>
+    <h2>MUSKET Token</h2>
+    <p><strong>Symbol:</strong> MUSKET</p>
+    <p><strong>Contract Address:</strong> <code>0x293E5dc7405FA8f4155Af6353542Ed00426A979a</code></p>
+    <button onclick="connectWallet()" style="padding: 10px 20px; font-size: 16px;">Buy MUSKET (Connect Wallet)</button>
+    <script>
+    async function connectWallet() {
+        if (window.ethereum) {
+            try {
+                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                alert('Wallet connected: ' + accounts[0]);
+            } catch (error) {
+                alert('Connection failed: ' + error.message);
+            }
+        } else {
+            alert('MetaMask is not installed!');
+        }
+    }
+    </script>
 </body>
 </html>
