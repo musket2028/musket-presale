@@ -2,48 +2,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MUSKET Presale</title>
-  <link href="style.css" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MUSKET Presale</title>
+    <link href="style.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
 </head>
 <body>
-  <header>
-    <h1>$MUSKET - Musk vs Trump</h1>
-    <p>The Meme War Begins - Join the Revolution</p>
-  </header>
-  <section class="hero">
-    <h2>🔥 Official Presale is Live!</h2>
-    <p>Buy now and be part of the next viral meme coin.</p>
-    <a href="#howtobuy" class="btn">How to Buy</a>
-  </section>
-  <section class="features">
-    <div class="feature">
-      <h3>Total Supply</h3>
-      <p>1,000,000,000 MUSKET</p>
-    </div>
-    <div class="feature">
-      <h3>Presale Allocation</h3>
-      <p>800,000,000 MUSKET</p>
-    </div>
-    <div class="feature">
-      <h3>Price</h3>
-      <p>1 BNB = 500,000 MUSKET</p>
-    </div>
-  </section>
-  <section id="howtobuy">
-    <h2>How to Buy</h2>
-    <ol>
-      <li>Send BNB to: <strong>0x8E73c8E9E61BC9c6c99A784b94Ae7609283Cc241</strong></li>
-      <li>Minimum: 0.01 BNB - Max: 10 BNB</li>
-      <li>You will receive MUSKET tokens automatically!</li>
-    </ol>
-  </section>
-  <footer>
-    <p>Follow us:</p>
-    <a href="https://t.me/muskvsTrumpCoin" target="_blank">Telegram</a> |
-    <a href="https://x.com/muskvs_trump" target="_blank">Twitter</a>
-    <p>Contract: 0x293E5dc7405FA8f4155Af6353542Ed00426A979a</p>
-  </footer>
+    <header>
+        <img src="logo.png" alt="MUSKET Logo" class="logo">
+        <h1>MUSKET - The Meme Revolution</h1>
+        <p class="tagline">You’re not just buying a token — you’re buying the future.</p>
+    </header>
+
+    <section class="presale-info">
+        <h2>Token Information</h2>
+        <p><strong>Name:</strong> Musk vs Trump</p>
+        <p><strong>Symbol:</strong> MUSKET</p>
+        <p><strong>Contract Address:</strong> 
+            <span id="contract">0x293E5dc7405FA8f4155Af6353542Ed00426A979a</span>
+            <button onclick="copyAddress()">Copy</button>
+        </p>
+    </section>
+
+    <section class="converter">
+        <h2>BNB to MUSKET Converter</h2>
+        <input type="number" id="bnbInput" placeholder="Enter BNB amount" oninput="convert()">
+        <p>You will receive: <span id="musketOutput">0</span> MUSKET</p>
+    </section>
+
+    <section class="buy-section">
+        <button onclick="connectWallet()">Buy with MetaMask</button>
+        <p class="note">Send BNB directly to the contract address above to receive MUSKET automatically.</p>
+        <p class="verified">Contract Verified on BscScan</p>
+    </section>
+
+    <section class="roadmap">
+        <h2>Roadmap</h2>
+        <ul>
+            <li><strong>Phase 1:</strong> Token Launch & Presale</li>
+            <li><strong>Phase 2:</strong> Community Building & Listings on CoinMarketCap/CoinGecko</li>
+            <li><strong>Phase 3:</strong> Listing on PancakeSwap</li>
+            <li><strong>Phase 4:</strong> Marketing & Partnerships</li>
+            <li><strong>Phase 5:</strong> CEX Listings & Meme Expansion</li>
+        </ul>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 MUSKET Coin. All rights reserved.</p>
+        <p><a href="https://t.me/muskvsTrumpCoin" target="_blank">Telegram</a> | <a href="https://x.com/muskvs_trump" target="_blank">Twitter</a></p>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>

@@ -1,45 +1,65 @@
 
 body {
-  font-family: sans-serif;
-  margin: 0;
-  padding: 0;
-  background: #0c0c0c;
-  color: #fff;
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to right, #0b0f2b, #1f2937);
+    color: #ffffff;
+    text-align: center;
 }
 header {
-  text-align: center;
-  padding: 2rem;
-  background: linear-gradient(90deg, #ff4e50, #f9d423);
+    padding: 40px 20px;
 }
-.hero {
-  text-align: center;
-  padding: 4rem 2rem;
-  background: #1a1a1a;
+.logo {
+    width: 100px;
+    margin-bottom: 10px;
 }
-.btn {
-  display: inline-block;
-  margin-top: 1rem;
-  padding: 0.75rem 1.5rem;
-  background: #ff4e50;
-  color: white;
-  text-decoration: none;
-  border-radius: 8px;
+.tagline {
+    color: #ff3c3c;
+    font-size: 1.2em;
 }
-.features {
-  display: flex;
-  justify-content: space-around;
-  padding: 2rem;
-  background: #222;
+h1, h2 {
+    color: #ff3c3c;
 }
-.feature {
-  text-align: center;
+button {
+    background-color: #ff3c3c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    margin-top: 10px;
+}
+button:hover {
+    background-color: #e52e2e;
+}
+input {
+    padding: 10px;
+    font-size: 1em;
+    margin-top: 10px;
+    width: 200px;
+}
+.presale-info, .converter, .buy-section, .roadmap {
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 600px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
 }
 footer {
-  text-align: center;
-  padding: 2rem;
-  background: #111;
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #101522;
+    font-size: 0.9em;
+}
+.verified {
+    margin-top: 10px;
+    color: lightgreen;
 }
 a {
-  color: #f9d423;
-  text-decoration: none;
+    color: #4dabf7;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
 }
