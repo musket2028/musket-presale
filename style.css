@@ -1,54 +1,38 @@
 
 body {
-  margin: 0;
-  font-family: 'Comic Sans MS', sans-serif;
-  background: linear-gradient(to bottom, #1e003e, #001f3f, #330000);
-  color: #fff;
-  text-align: center;
+    font-family: 'Arial', sans-serif;
+    background-color: #0d0c1d;
+    color: white;
+    margin: 0;
+    padding: 0;
 }
-
 .hero {
-  padding: 20px;
-  background-color: #290045;
+    text-align: center;
+    padding: 30px;
+    background-color: #1b1a2f;
 }
-
 .banner {
-  width: 100%;
-  max-height: 300px;
-  object-fit: cover;
+    max-width: 100%;
+    height: auto;
 }
-
-.cta button {
-  padding: 10px 20px;
-  margin: 10px;
-  font-size: 16px;
-  cursor: pointer;
+.cta-buttons button {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
 }
-
-.buy {
-  background-color: red;
-  color: white;
-  border: none;
+section {
+    padding: 20px;
+    background-color: #1b1a2f;
+    margin: 10px 0;
 }
-
-.about, .tokenomics, .converter, .roadmap, .community {
-  padding: 20px;
-  background-color: rgba(255, 255, 255, 0.05);
-  margin: 20px auto;
-  border-radius: 10px;
-  max-width: 800px;
-}
-
-.phase {
-  background: #6100ff;
-  padding: 10px;
-  margin: 10px;
-  border-radius: 5px;
-}
-
 footer {
-  background-color: #111;
-  padding: 20px;
-  color: #bbb;
-  font-size: 12px;
+    background-color: #111;
+    text-align: center;
+    padding: 10px;
+    font-size: 14px;
+}
+a {
+    color: #00bfff;
+    text-decoration: none;
 }

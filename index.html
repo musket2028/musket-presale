@@ -2,79 +2,87 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MUSKET – Buy the Future Today!</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MUSKET - Buy the Future Today!</title>
+    <link href="style.css" rel="stylesheet">
 </head>
 <body>
-  <header class="hero">
-    <div class="container">
-      <img src="musket-banner.jpg" alt="Musket Banner" class="banner" />
-      <h1>MUSKET – Buy the Future Today!</h1>
-      <p class="subtitle">You're not just buying a token — you're buying the future.</p>
-      <div class="cta">
-        <button>Connect Wallet</button>
-        <button class="buy">Buy MUSKET</button>
-      </div>
-      <div class="rate">1 BNB = 500,000 MUSKET</div>
-    </div>
-  </header>
+    <header class="hero">
+        <img src="banner.jpg" alt="MUSKET Banner" class="banner">
+        <h1>MUSKET</h1>
+        <p class="tagline">You’re not just buying a token — you’re buying the future.</p>
+        <div class="cta-buttons">
+            <button>Connect Wallet</button>
+            <button>Buy MUSKET</button>
+        </div>
+        <p class="rate">1 BNB = 500,000 MUSKET</p>
+    </header>
 
-  <section class="about">
-    <h2>About</h2>
-    <p>Name: MUSKET | Symbol: PMUSK</p>
-    <p>Contract Address: <span id="contract">0x293E5dc7405FA8f4155Af6353542Ed00426A979a</span>
-    <button onclick="copyAddress()">Copy</button></p>
-    <a href="https://bscscan.com/address/0x293E5dc7405FA8f4155Af6353542Ed00426A979a" target="_blank">View on BscScan</a>
-  </section>
+    <section class="about">
+        <h2>About the Token</h2>
+        <p><strong>Name:</strong> MUSKET</p>
+        <p><strong>Symbol:</strong> MUSKET</p>
+        <p><strong>Contract:</strong> <span id="contract-address">0x293E5dc7405FA8f4155Af6353542Ed00426A979a</span> <button onclick="copyAddress()">Copy</button></p>
+        <a href="https://bscscan.com/address/0x293E5dc7405FA8f4155Af6353542Ed00426A979a" target="_blank">View on BscScan</a>
+    </section>
 
-  <section class="tokenomics">
-    <h2>Tokenomics & Presale</h2>
-    <ul>
-      <li>Total Supply: 1,000,000,000 MUSKET</li>
-      <li>Presale: 800,000,000 MUSKET</li>
-      <li>Team: 200,000,000 MUSKET</li>
-    </ul>
-  </section>
+    <section class="tokenomics">
+        <h2>Tokenomics & Presale</h2>
+        <ul>
+            <li>Total Supply: 1,000,000,000 MUSKET</li>
+            <li>Presale: 800,000,000</li>
+            <li>Team: 200,000,000</li>
+        </ul>
+        <h3>Token Allocation</h3>
+        <ul>
+            <li>Presale: 80%</li>
+            <li>Marketing: 5%</li>
+            <li>Liquidity: 10%</li>
+            <li>Community Rewards: 5%</li>
+        </ul>
+    </section>
 
-  <section class="converter">
-    <h2>BNB to MUSKET Converter</h2>
-    <input type="number" id="bnbInput" placeholder="Enter BNB amount" oninput="convert()" />
-    <p>You’ll receive: <span id="musketOutput">0</span> MUSKET</p>
-  </section>
+    <section class="converter">
+        <h2>Live BNB → MUSKET Converter</h2>
+        <input type="number" id="bnbInput" placeholder="Enter BNB amount" oninput="convertBNB()">
+        <p>You will receive: <span id="musketOutput">0</span> MUSKET</p>
+    </section>
 
-  <section class="roadmap">
-    <h2>Roadmap</h2>
-    <div class="phases">
-      <div class="phase">Presale</div>
-      <div class="phase">Listing on Exchanges</div>
-      <div class="phase">Activate Liquidity</div>
-      <div class="phase">Marketing & Community</div>
-    </div>
-  </section>
+    <section class="roadmap">
+        <h2>Roadmap</h2>
+        <ol>
+            <li>Phase 1: Presale</li>
+            <li>Phase 2: Listing on Exchanges</li>
+            <li>Phase 3: Liquidity Activation</li>
+            <li>Phase 4: Marketing & Community Building</li>
+        </ol>
+    </section>
 
-  <section class="community">
-    <h2>Join Our Community</h2>
-    <a href="https://t.me/muskvsTrumpCoin" target="_blank">Telegram</a> |
-    <a href="#">Twitter</a> |
-    <a href="#">Instagram</a> |
-    <a href="#">Whitepaper</a>
-  </section>
+    <section class="community">
+        <h2>Community & Links</h2>
+        <a href="https://t.me/muskvsTrumpCoin">Telegram</a> |
+        <a href="#">Twitter</a> |
+        <a href="#">Instagram</a> |
+        <a href="#">Whitepaper</a>
+    </section>
 
-  <footer>
-    <p>&copy; 2025 MUSKET. All rights reserved. | Privacy Policy | Terms</p>
-  </footer>
+    <footer>
+        <p>© 2025 MUSKET Coin. All rights reserved.</p>
+        <a href="#">Terms</a> | <a href="#">Privacy</a>
+    </footer>
 
-  <script>
-    function convert() {
-      const bnb = parseFloat(document.getElementById('bnbInput').value) || 0;
-      document.getElementById('musketOutput').innerText = bnb * 500000;
-    }
-    function copyAddress() {
-      navigator.clipboard.writeText(document.getElementById('contract').innerText);
-      alert('Contract address copied!');
-    }
-  </script>
+    <script>
+        function copyAddress() {
+            const address = document.getElementById("contract-address").textContent;
+            navigator.clipboard.writeText(address);
+            alert("Address copied!");
+        }
+        function convertBNB() {
+            const bnb = document.getElementById("bnbInput").value;
+            const musket = bnb * 500000;
+            document.getElementById("musketOutput").textContent = musket;
+        }
+    </script>
 </body>
 </html>
