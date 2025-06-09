@@ -4,28 +4,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MUSKET - Musk vs Trump</title>
+    <title>MUSKET – Musk vs Trump</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
 </head>
-<body style="background-color:#0c0d23;color:white;font-family:sans-serif;text-align:center;">
-    <img src="banner.png" alt="MUSKET Banner" style="width:100%;max-width:1200px;">
-    <h1 style="color:#ff3131;">You’re not just buying a token — you’re buying the future.</h1>
-    <h2>MUSKET Token</h2>
-    <p><strong>Symbol:</strong> MUSKET</p>
-    <p><strong>Contract Address:</strong> <code>0x293E5dc7405FA8f4155Af6353542Ed00426A979a</code></p>
-    <button onclick="connectWallet()" style="padding: 10px 20px; font-size: 16px;">Buy MUSKET (Connect Wallet)</button>
-    <script>
-    async function connectWallet() {
-        if (window.ethereum) {
-            try {
-                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                alert('Wallet connected: ' + accounts[0]);
-            } catch (error) {
-                alert('Connection failed: ' + error.message);
-            }
-        } else {
-            alert('MetaMask is not installed!');
-        }
-    }
-    </script>
+<body>
+    <header>
+        <img src="banner.png" alt="MUSKET Banner" class="banner">
+        <h1>MUSKET</h1>
+        <p class="slogan">You’re not just buying a token — you’re buying the future.</p>
+        <button onclick="connectWallet()">Connect Wallet</button>
+        <p class="contract-label">Contract Address:</p>
+        <p id="contract-address" onclick="copyAddress()">0x293E5dc7405FA8f4155Af6353542Ed00426A979a</p>
+    </header>
+
+    <section class="converter">
+        <h2>BNB to MUSKET Converter</h2>
+        <input type="number" id="bnbInput" placeholder="Enter BNB amount" oninput="updateConverter()">
+        <p>You will receive: <span id="tokenOutput">0</span> MUSKET</p>
+    </section>
+
+    <section class="info">
+        <h2>Token Info</h2>
+        <ul>
+            <li>Name: MUSKET</li>
+            <li>Symbol: MUSKET</li>
+            <li>Total Supply: 1,000,000,000</li>
+            <li>Presale Rate: 1 BNB = 500,000 MUSKET</li>
+        </ul>
+    </section>
+
+    <section class="roadmap">
+        <h2>Roadmap</h2>
+        <ol>
+            <li>🔥 Presale Launch</li>
+            <li>🚀 Liquidity Setup</li>
+            <li>📈 Listings on PancakeSwap</li>
+            <li>🎯 Marketing Campaigns</li>
+            <li>🛠️ Future Utility Integration</li>
+        </ol>
+    </section>
+
+    <footer>
+        <p>© 2025 MUSKET Token. All rights reserved.</p>
+    </footer>
+
+    <script src="app.js"></script>
 </body>
 </html>

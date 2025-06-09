@@ -1,28 +1,26 @@
 
 body {
-    font-family: 'Segoe UI', sans-serif;
+    font-family: Arial, sans-serif;
+    background: #0b0c2a;
+    color: #fff;
     margin: 0;
     padding: 0;
-    background: linear-gradient(to right, #0b0f2b, #1f2937);
-    color: #ffffff;
     text-align: center;
 }
 header {
-    padding: 40px 20px;
+    background: #141645;
+    padding: 20px;
 }
-.logo {
-    width: 100px;
-    margin-bottom: 10px;
+.banner {
+    width: 100%;
+    max-width: 800px;
 }
-.tagline {
-    color: #ff3c3c;
+.slogan {
     font-size: 1.2em;
-}
-h1, h2 {
-    color: #ff3c3c;
+    margin-top: 10px;
 }
 button {
-    background-color: #ff3c3c;
+    background: red;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -30,36 +28,21 @@ button {
     cursor: pointer;
     margin-top: 10px;
 }
-button:hover {
-    background-color: #e52e2e;
+.contract-label {
+    margin-top: 20px;
+    font-weight: bold;
 }
-input {
+#contract-address {
+    font-family: monospace;
+    background: #222;
+    padding: 10px;
+    display: inline-block;
+    cursor: pointer;
+}
+.converter input {
     padding: 10px;
     font-size: 1em;
-    margin-top: 10px;
-    width: 200px;
 }
-.presale-info, .converter, .buy-section, .roadmap {
+section {
     padding: 20px;
-    margin: 20px auto;
-    max-width: 600px;
-    background-color: rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
-}
-footer {
-    margin-top: 40px;
-    padding: 20px;
-    background-color: #101522;
-    font-size: 0.9em;
-}
-.verified {
-    margin-top: 10px;
-    color: lightgreen;
-}
-a {
-    color: #4dabf7;
-    text-decoration: none;
-}
-a:hover {
-    text-decoration: underline;
 }
