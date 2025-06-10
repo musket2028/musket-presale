@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,8 +15,11 @@
     <h1 class="hero-title">MUSKET – Buy the Future Today!</h1>
     <p class="hero-subtitle">You’re not just buying a token — you’re buying the future.</p>
     <button id="connectWallet">🔗 Connect Wallet</button>
-    <button id="buyToken">💰 Buy MUSKET</button>
     <p class="conversion-rate">1 BNB = 500,000 MUSKET</p>
+    <p class="note">
+      By sending BNB to the contract address, you will automatically receive MUSKET tokens.<br>
+      <strong>The future is in your hands!</strong>
+    </p>
   </header>
 
   <section class="token-info">
@@ -86,10 +90,6 @@
       } else {
         alert("Please install MetaMask!");
       }
-    };
-
-    document.getElementById('buyToken').onclick = () => {
-      alert("Web3 Buy logic goes here (not live yet)");
     };
   </script>
 </body>
