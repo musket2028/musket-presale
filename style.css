@@ -1,33 +1,31 @@
 
 body {
-  background-color: #1e144f;
-  color: #ffe600;
-  font-family: 'Comic Sans MS', cursive;
+  font-family: 'Luckiest Guy', cursive;
+  background: linear-gradient(to bottom right, #1f0036, #3b006f);
+  color: white;
   text-align: center;
   margin: 0;
   padding: 0;
 }
+button {
+  padding: 10px 20px;
+  background-color: #ff0099;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 1em;
+  cursor: pointer;
+  margin: 10px;
+}
 .hero-banner {
   width: 100%;
-  max-width: 1000px;
-  display: block;
-  margin: 0 auto;
+  max-height: 300px;
+  object-fit: cover;
 }
-button {
-  background-color: #ff3366;
-  border: none;
-  color: white;
-  padding: 10px 20px;
-  font-size: 1em;
-  margin: 10px;
-  cursor: pointer;
-  border-radius: 5px;
+section {
+  margin: 40px 20px;
 }
-button:hover {
-  background-color: #e6004d;
-}
-.note {
-  margin-top: 15px;
-  font-size: 1.1em;
-  color: #90e0ef;
+a {
+  color: #ffcc00;
+  text-decoration: none;
 }
