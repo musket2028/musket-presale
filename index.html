@@ -2,62 +2,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MUSKET – Buy the Future Today!</title>
-    <link rel="stylesheet" href="style.css" />
-    <script defer src="script.js"></script>
 </head>
-<body>
-    <header>
-        <img src="banner.png" alt="MUSKET Banner" class="banner"/>
-        <h1>MUSKET – Buy the Future Today!</h1>
-        <p class="tagline">You’re not just buying a token — you’re buying the future.</p>
-        <button onclick="connectWallet()">Connect Wallet</button>
-        <button onclick="buyToken()">Buy MUSKET</button>
-        <p class="rate">1 BNB = 500,000 MUSKET</p>
-    </header>
-
-    <section id="about">
-        <h2>About</h2>
-        <p><strong>Token Name:</strong> Musk vs Trump</p>
-        <p><strong>Symbol:</strong> MUSKET</p>
-        <p><strong>Contract:</strong> <span id="contract">0x293E5dc7405FA8f4155Af6353542Ed00426A979a</span> <button onclick="copyContract()">Copy</button></p>
-        <a href="https://bscscan.com/address/0x293E5dc7405FA8f4155Af6353542Ed00426A979a" target="_blank">View on BscScan</a>
-    </section>
-
-    <section id="tokenomics">
-        <h2>Token Allocation</h2>
-        <ul>
-            <li>Presale: 80%</li>
-            <li>Marketing: 5%</li>
-            <li>Liquidity: 10%</li>
-            <li>Community Rewards: 5%</li>
-        </ul>
-    </section>
-
-    <section id="converter">
-        <h2>BNB to MUSKET Converter</h2>
-        <input type="number" id="bnbInput" placeholder="Enter BNB" />
-        <p>You will receive: <span id="musketOutput">0</span> MUSKET</p>
-    </section>
-
-    <section id="roadmap">
-        <h2>Roadmap</h2>
-        <img src="roadmap.png" alt="Roadmap" class="roadmap"/>
-    </section>
-
-    <section id="community">
-        <h2>Join the Community</h2>
-        <ul>
-            <li><a href="https://t.me/muskvsTrumpCoin" target="_blank">Telegram</a></li>
-            <li><a href="https://x.com/muskvs_trump" target="_blank">Twitter</a></li>
-            <li><a href="whitepaper.pdf" target="_blank">Whitepaper</a></li>
-        </ul>
-    </section>
-
-    <footer>
-        <p>&copy; 2025 MUSKET. All rights reserved.</p>
-    </footer>
+<body style="font-family:sans-serif;background-color:#15142b;color:white;text-align:center;padding:20px;">
+    <img src="MUSKET_ Musk vs Trump Showdown.png" alt="Banner" style="width:100%;max-height:400px;object-fit:cover;">
+    <h1>MUSKET – Buy the Future Today!</h1>
+    <p>You’re not just buying a token — you’re buying the future.</p>
+    <h2>Token Info</h2>
+    <p>Name: Musk vs Trump<br>Symbol: MUSKET<br>Contract: <a href="https://bscscan.com/address/0x293E5dc7405FA8f4155Af6353542Ed00426A979a" style="color:lightblue;">0x293E5d...979a</a></p>
+    <h2>Token Allocation</h2>
+    <ul style="list-style:none;">
+        <li>Presale: 80%</li>
+        <li>Liquidity: 10%</li>
+        <li>Marketing: 5%</li>
+        <li>Community Rewards: 5%</li>
+    </ul>
+    <h2>Live BNB → MUSKET Converter</h2>
+    <input type="number" id="bnbInput" placeholder="Enter BNB" oninput="convertBNB()" style="padding:10px;">
+    <p id="output">You'll get: 0 MUSKET</p>
+    <script>
+        function convertBNB() {
+            const rate = 500000;
+            let bnb = parseFloat(document.getElementById('bnbInput').value) || 0;
+            document.getElementById('output').innerText = "You'll get: " + (bnb * rate).toLocaleString() + " MUSKET";
+        }
+    </script>
+    <h2>Roadmap</h2>
+    <img src="roadmap_musket.png" alt="Roadmap" style="width:90%;max-width:800px;">
 </body>
 </html>
