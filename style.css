@@ -1,1 +1,31 @@
-Sample content for style.css
+
+body {
+  font-family: 'Luckiest Guy', cursive;
+  background: linear-gradient(to bottom right, #1f0036, #3b006f);
+  color: white;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+button {
+  padding: 10px 20px;
+  background-color: #ff0099;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 1em;
+  cursor: pointer;
+  margin: 10px;
+}
+.hero-banner {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+}
+section {
+  margin: 40px 20px;
+}
+a {
+  color: #ffcc00;
+  text-decoration: none;
+}
