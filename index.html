@@ -1,94 +1,59 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MUSKET – Buy the Future Today!</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header class="hero">
+  <div class="hero">
     <img src="banner.jpg" alt="MUSKET Banner" class="hero-banner">
-    <h1 class="hero-title">MUSKET – Buy the Future Today!</h1>
-    <p class="hero-subtitle">You’re not just buying a token — you’re buying the future.</p>
+    <h1>MUSKET – Buy the Future Today!</h1>
+    <p class="tagline">You’re not just buying a token — you’re buying the future.</p>
     <button id="connectWallet">🔗 Connect Wallet</button>
-    <p class="conversion-rate">1 BNB = 500,000 MUSKET</p>
+    <button id="buyToken">💰 Buy MUSKET</button>
     <p class="note">
       By sending BNB to the contract address, you will automatically receive MUSKET tokens.<br>
-      <strong>The future is in your hands!</strong>
+      <strong>1 BNB = 500,000 MUSKET</strong> — The future is in your hands!
     </p>
-  </header>
-
-  <section class="token-info">
-    <h2>About MUSKET</h2>
-    <p><strong>Name:</strong> Musk vs Trump</p>
-    <p><strong>Symbol:</strong> MUSKET</p>
-    <p><strong>Contract:</strong> <span id="contractAddress">0x293E5dc7405FA8f4155Af6353542Ed00426A979a</span>
-      <button onclick="copyAddress()">📋 Copy</button>
-    </p>
-    <a href="https://bscscan.com/address/0x293E5dc7405FA8f4155Af6353542Ed00426A979a" target="_blank">View on BscScan 🔎</a>
-  </section>
-
-  <section class="tokenomics">
-    <h2>Tokenomics & Presale</h2>
-    <ul>
-      <li><strong>Total Supply:</strong> 1,000,000,000</li>
-      <li>Presale: 800,000,000 (80%)</li>
-      <li>Marketing: 50,000,000 (5%)</li>
-      <li>Liquidity: 100,000,000 (10%)</li>
-      <li>Community Rewards: 50,000,000 (5%)</li>
-    </ul>
-  </section>
-
-  <section class="converter">
-    <h2>BNB → MUSKET Converter</h2>
-    <input type="number" id="bnbInput" placeholder="Enter BNB amount" oninput="convertBNB()" />
-    <p>You will get: <span id="musketAmount">0</span> MUSKET</p>
-  </section>
-
-  <section class="roadmap">
-    <h2>Roadmap</h2>
-    <ol>
-      <li>🚀 Presale Launch</li>
-      <li>📈 Listing on DEX/CEX</li>
-      <li>🌊 Liquidity Pool Activation</li>
-      <li>🔥 Marketing & Community Growth</li>
-    </ol>
-  </section>
-
-  <section class="community">
-    <h2>Join the Community</h2>
-    <a href="https://t.me/muskvsTrumpCoin" target="_blank">Telegram</a> |
-    <a href="https://twitter.com" target="_blank">Twitter</a> |
-    <a href="whitepaper.pdf" target="_blank">Whitepaper</a>
-  </section>
-
-  <footer>
-    <p>© 2025 MUSKET Token. All rights reserved.</p>
-    <p>Privacy Policy | Terms & Conditions</p>
-  </footer>
+  </div>
 
   <script>
-    function copyAddress() {
-      const address = document.getElementById('contractAddress').innerText;
-      navigator.clipboard.writeText(address);
-      alert("Contract address copied!");
-    }
-
-    function convertBNB() {
-      const bnb = parseFloat(document.getElementById('bnbInput').value) || 0;
-      document.getElementById('musketAmount').innerText = (bnb * 500000).toLocaleString();
-    }
+    const contractAddress = "0x293E5dc7405FA8f4155Af6353542Ed00426A979a";
 
     document.getElementById('connectWallet').onclick = async () => {
       if (window.ethereum) {
-        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-        alert("Wallet connected: " + accounts[0]);
+        try {
+          await ethereum.request({ method: 'eth_requestAccounts' });
+          alert("Wallet connected successfully!");
+        } catch (err) {
+          alert("Connection rejected!");
+        }
       } else {
-        alert("Please install MetaMask!");
+        alert("MetaMask not found. Please install it.");
+      }
+    };
+
+    document.getElementById('buyToken').onclick = async () => {
+      if (!window.ethereum) return alert("Please install MetaMask!");
+      const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+      const account = accounts[0];
+      const web3 = new Web3(window.ethereum);
+
+      const bnbAmount = prompt("Enter BNB amount to send:");
+      if (!bnbAmount || isNaN(bnbAmount)) return alert("Invalid BNB amount!");
+
+      try {
+        const tx = await web3.eth.sendTransaction({
+          from: account,
+          to: contractAddress,
+          value: web3.utils.toWei(bnbAmount, 'ether')
+        });
+        alert("Transaction sent! Hash: " + tx.transactionHash);
+      } catch (err) {
+        alert("Transaction failed: " + err.message);
       }
     };
   </script>
