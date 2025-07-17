@@ -1206,6 +1206,42 @@
             border-left: 6px solid var(--meme-blue);
         }
         
+        /* Web3Modal Customization */
+        .web3modal-modal-lightbox {
+            background: rgba(0, 0, 0, 0.8) !important;
+            backdrop-filter: blur(10px) !important;
+        }
+        
+        .web3modal-modal-container {
+            background: linear-gradient(135deg, #1a0030, #0a0a20) !important;
+            border: 2px solid var(--meme-yellow) !important;
+            border-radius: 20px !important;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.5) !important;
+        }
+        
+        .web3modal-provider-container {
+            border: 1px solid var(--meme-pink) !important;
+            border-radius: 15px !important;
+            background: rgba(25, 10, 45, 0.8) !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        .web3modal-provider-container:hover {
+            transform: translateY(-5px) !important;
+            box-shadow: 0 10px 25px rgba(255, 0, 170, 0.3) !important;
+            border-color: var(--meme-yellow) !important;
+        }
+        
+        .web3modal-provider-name {
+            color: var(--meme-yellow) !important;
+            font-weight: 700 !important;
+            font-family: 'Comic Neue', cursive !important;
+        }
+        
+        .web3modal-provider-description {
+            color: var(--light-gray) !important;
+        }
+        
         @keyframes pulse {
             0% { box-shadow: 0 0 15px rgba(255, 215, 0, 0.5); }
             50% { box-shadow: 0 0 30px rgba(255, 215, 0, 0.9); }
@@ -1736,16 +1772,40 @@
         let maxContribution = 5;
         let tokensPerBNB = 500000;
         let presaleMaxBNB = 1500;
+        let web3Modal;
+        
+        // Initialize Web3Modal
+        function initWeb3Modal() {
+            const providerOptions = {
+                walletconnect: {
+                    package: window.WalletConnectProvider.default,
+                    options: {
+                        rpc: {
+                            56: BSC_RPC_URL
+                        },
+                        chainId: BSC_CHAIN_ID
+                    }
+                },
+                binancechainwallet: {
+                    package: true
+                },
+                coinbasewallet: {
+                    package: true
+                }
+            };
+
+            web3Modal = new window.Web3Modal.default({
+                cacheProvider: false,
+                providerOptions,
+                theme: "dark"
+            });
+        }
         
         // Initialize contract
         async function initContract() {
             try {
-                // Initialize Web3
-                if (window.ethereum) {
-                    web3 = new Web3(window.ethereum);
-                } else {
-                    web3 = new Web3(new Web3.providers.HttpProvider(BSC_RPC_URL));
-                }
+                // Initialize Web3 with read-only provider
+                web3 = new Web3(new Web3.providers.HttpProvider(BSC_RPC_URL));
                 
                 // Initialize contract
                 contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
@@ -1781,7 +1841,8 @@
             }
         }
         
-        // Initialize contract on page load
+        // Initialize on page load
+        initWeb3Modal();
         initContract();
         
         // Update progress bar with real data
@@ -1831,62 +1892,74 @@
             }, 2000);
         });
         
-        // Connect to MetaMask and switch to BSC
-        async function connectMetaMask() {
-            if (window.ethereum) {
-                try {
-                    // Request account access
-                    const accounts = await window.ethereum.request({ 
-                        method: 'eth_requestAccounts' 
-                    });
-                    
-                    // Switch to BSC network
-                    try {
-                        await window.ethereum.request({
-                            method: 'wallet_switchEthereumChain',
-                            params: [{ chainId: `0x${BSC_CHAIN_ID.toString(16)}` }],
-                        });
-                    } catch (switchError) {
-                        // This error code indicates that the chain has not been added to MetaMask
-                        if (switchError.code === 4902) {
-                            await window.ethereum.request({
-                                method: 'wallet_addEthereumChain',
-                                params: [{
-                                    chainId: `0x${BSC_CHAIN_ID.toString(16)}`,
-                                    chainName: 'Binance Smart Chain Mainnet',
-                                    nativeCurrency: {
-                                        name: 'BNB',
-                                        symbol: 'BNB',
-                                        decimals: 18
-                                    },
-                                    rpcUrls: [BSC_RPC_URL],
-                                    blockExplorerUrls: ['https://bscscan.com/']
-                                }],
-                            });
-                        } else {
-                            throw switchError;
-                        }
-                    }
-                    
-                    account = accounts[0];
-                    
-                    // Update UI
-                    walletAddress.textContent = truncateAddress(account);
-                    walletInfo.style.display = 'flex';
-                    
-                    showNotification('Wallet connected successfully!', 'success');
-                    
-                    // Update button text
-                    connectWalletBtn.innerHTML = '<i class="fas fa-coins"></i> BUY MORE TOKENS';
-                    
-                    return true;
-                } catch (error) {
-                    showNotification('Error connecting wallet: ' + error.message, 'error');
-                    return false;
+        // Connect wallet with Web3Modal
+        async function connectWallet() {
+            try {
+                // Open Web3Modal
+                const provider = await web3Modal.connect();
+                
+                // Initialize Web3 with the provider
+                web3 = new Web3(provider);
+                
+                // Get accounts
+                const accounts = await web3.eth.getAccounts();
+                account = accounts[0];
+                
+                // Check network
+                const chainId = await web3.eth.getChainId();
+                if (chainId !== BSC_CHAIN_ID) {
+                    await switchToBSC(provider);
                 }
-            } else {
-                showNotification('Please install a Web3 wallet like MetaMask!', 'error');
-                return false;
+                
+                // Update UI
+                walletAddress.textContent = truncateAddress(account);
+                walletInfo.style.display = 'flex';
+                
+                // Update contract instance
+                contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
+                
+                showNotification('Wallet connected successfully!', 'success');
+                
+                // Update button text
+                connectWalletBtn.innerHTML = '<i class="fas fa-coins"></i> BUY MORE TOKENS';
+                
+            } catch (error) {
+                console.error('Error connecting wallet:', error);
+                showNotification('Error connecting wallet: ' + error.message, 'error');
+            }
+        }
+        
+        // Switch to BSC network
+        async function switchToBSC(provider) {
+            try {
+                await provider.request({
+                    method: 'wallet_switchEthereumChain',
+                    params: [{ chainId: `0x${BSC_CHAIN_ID.toString(16)}` }],
+                });
+            } catch (switchError) {
+                // This error code indicates that the chain has not been added to MetaMask
+                if (switchError.code === 4902) {
+                    try {
+                        await provider.request({
+                            method: 'wallet_addEthereumChain',
+                            params: [{
+                                chainId: `0x${BSC_CHAIN_ID.toString(16)}`,
+                                chainName: 'Binance Smart Chain Mainnet',
+                                nativeCurrency: {
+                                    name: 'BNB',
+                                    symbol: 'BNB',
+                                    decimals: 18
+                                },
+                                rpcUrls: [BSC_RPC_URL],
+                                blockExplorerUrls: ['https://bscscan.com/']
+                            }],
+                        });
+                    } catch (addError) {
+                        throw addError;
+                    }
+                } else {
+                    throw switchError;
+                }
             }
         }
         
@@ -1965,7 +2038,7 @@
         // Event Listeners
         connectWalletBtn.addEventListener('click', async function() {
             if (!account) {
-                await connectMetaMask();
+                await connectWallet();
             } else {
                 buyTokens();
             }
@@ -1991,67 +2064,6 @@
 <script src="https://cdn.jsdelivr.net/npm/web3@1.6.1/dist/web3.min.js"></script>
 <script src="https://unpkg.com/@walletconnect/web3-provider@1.8.0/dist/umd/index.min.js"></script>
 <script src="https://unpkg.com/web3modal@1.9.12/dist/index.js"></script>
-<script>
-let web3Modal, provider, web3, account, contract;
-const CONTRACT_ADDRESS = '0x3FE24F9c439de8744D865dF2Ed9C20b6af7bcd76';
-const CONTRACT_ABI = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},
-{"inputs":[{"internalType":"address","name":"spender","type":"address"},
-{"internalType":"uint256","name":"allowance","type":"uint256"},
-{"internalType":"uint256","name":"needed","type":"uint256"}],
-"name":"ERC20InsufficientAllowance","type":"error"},
-{"inputs":[{"internalType":"address","name":"sender","type":"address"},
-{"internalType":"uint256","name":"balance","type":"uint256"},
-{"internalType":"uint256","name":"needed","type":"uint256"}],
-"name":"ERC20InsufficientBalance","type":"error"},
-... (rest of ABI truncated for brevity) ...
-{"stateMutability":"payable","type":"receive"}];
-
-window.addEventListener('load', async () => {
-    const providerOptions = {
-        walletconnect: {
-            package: window.WalletConnectProvider.default,
-            options: {
-                rpc: {
-                    56: 'https://bsc-dataseed.binance.org/'
-                },
-                chainId: 56
-            }
-        }
-    };
-
-    web3Modal = new window.Web3Modal.default({
-        cacheProvider: false,
-        providerOptions
-    });
-
-    // Replace the existing MetaMask-only connect function with Web3Modal
-    const buyBtn = document.getElementById('buyButton');
-    if(buyBtn) {
-        buyBtn.addEventListener('click', async () => {
-            try {
-                provider = await web3Modal.connect();
-                web3 = new Web3(provider);
-                const accounts = await web3.eth.getAccounts();
-                account = accounts[0];
-                contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
-                console.log('Wallet connected:', account);
-                showNotification('✅ Wallet connected successfully!', 'success');
-            } catch (err) {
-                console.error('Connection failed', err);
-                showNotification('❌ Wallet connection failed', 'error');
-            }
-        });
-    }
-});
-
-function showNotification(message, type) {
-    const notif = document.createElement('div');
-    notif.className = 'notification ' + type;
-    notif.textContent = message;
-    document.body.appendChild(notif);
-    setTimeout(() => notif.remove(), 3000);
-}
-</script>
 
 </body>
 </html>
