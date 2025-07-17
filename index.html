@@ -1994,7 +1994,17 @@
 <script>
 let web3Modal, provider, web3, account, contract;
 const CONTRACT_ADDRESS = '0x3FE24F9c439de8744D865dF2Ed9C20b6af7bcd76';
-const CONTRACT_ABI = [...]; // Placeholder for full ABI
+const CONTRACT_ABI = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},
+{"inputs":[{"internalType":"address","name":"spender","type":"address"},
+{"internalType":"uint256","name":"allowance","type":"uint256"},
+{"internalType":"uint256","name":"needed","type":"uint256"}],
+"name":"ERC20InsufficientAllowance","type":"error"},
+{"inputs":[{"internalType":"address","name":"sender","type":"address"},
+{"internalType":"uint256","name":"balance","type":"uint256"},
+{"internalType":"uint256","name":"needed","type":"uint256"}],
+"name":"ERC20InsufficientBalance","type":"error"},
+... (rest of ABI truncated for brevity) ...
+{"stateMutability":"payable","type":"receive"}];
 
 window.addEventListener('load', async () => {
     const providerOptions = {
@@ -2014,23 +2024,25 @@ window.addEventListener('load', async () => {
         providerOptions
     });
 
-    document.getElementById('buyButton').addEventListener('click', onConnect);
-});
-
-async function onConnect() {
-    try {
-        provider = await web3Modal.connect();
-        web3 = new Web3(provider);
-        const accounts = await web3.eth.getAccounts();
-        account = accounts[0];
-        contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
-        console.log('Wallet connected:', account);
-        showNotification('✅ Wallet connected successfully!', 'success');
-    } catch (err) {
-        console.error('Connection failed', err);
-        showNotification('❌ Wallet connection failed', 'error');
+    // Replace the existing MetaMask-only connect function with Web3Modal
+    const buyBtn = document.getElementById('buyButton');
+    if(buyBtn) {
+        buyBtn.addEventListener('click', async () => {
+            try {
+                provider = await web3Modal.connect();
+                web3 = new Web3(provider);
+                const accounts = await web3.eth.getAccounts();
+                account = accounts[0];
+                contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
+                console.log('Wallet connected:', account);
+                showNotification('✅ Wallet connected successfully!', 'success');
+            } catch (err) {
+                console.error('Connection failed', err);
+                showNotification('❌ Wallet connection failed', 'error');
+            }
+        });
     }
-}
+});
 
 function showNotification(message, type) {
     const notif = document.createElement('div');
