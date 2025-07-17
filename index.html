@@ -6,6 +6,8 @@
     <title>MUSKET - MemeCoin Presale</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/web3@1.6.0/dist/web3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@web3modal/ethereum@2.0.0-beta.4/dist/umd/index.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@web3modal/html@2.0.0-beta.4/dist/umd/index.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&family=Nunito:wght@400;700;900&display=swap">
     <style>
         * {
@@ -1710,146 +1712,235 @@
         const CONTRACT_ADDRESS = '0x3FE24F9c439de8744D865dF2Ed9C20b6af7bcd76';
         const CONTRACT_ABI = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"allowance","type":"uint256"},{"internalType":"uint256","name":"needed","type":"uint256"}],"name":"ERC20InsufficientAllowance","type":"error"},{"inputs":[{"internalType":"address","name":"sender","type":"address"},{"internalType":"uint256","name":"balance","type":"uint256"},{"internalType":"uint256","name":"needed","type":"uint256"}],"name":"ERC20InsufficientBalance","type":"error"},{"inputs":[{"internalType":"address","name":"approver","type":"address"}],"name":"ERC20InvalidApprover","type":"error"},{"inputs":[{"internalType":"address","name":"receiver","type":"address"}],"name":"ERC20InvalidReceiver","type":"error"},{"inputs":[{"internalType":"address","name":"sender","type":"address"}],"name":"ERC20InvalidSender","type":"error"},{"inputs":[{"internalType":"address","name":"spender","type":"address"}],"name":"ERC20InvalidSpender","type":"error"},{"inputs":[{"internalType":"address","name":"owner","type":"address"}],"name":"OwnableInvalidOwner","type":"error"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"OwnableUnauthorizedAccount","type":"error"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"bnbAmount","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"tokenAmount","type":"uint256"}],"name":"EmergencyWithdraw","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"lpToken","type":"address"},{"indexed":false,"internalType":"uint256","name":"tokenAmount","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"bnbAmount","type":"uint256"}],"name":"LiquidityAdded","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"unlockTime","type":"uint256"}],"name":"LiquidityLocked","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"endTime","type":"uint256"}],"name":"PresaleEnded","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"buyer","type":"address"},{"indexed":false,"internalType":"uint256","name":"bnbAmount","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"tokenAmount","type":"uint256"}],"name":"TokensPurchased","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"inputs":[],"name":"LIQUIDITY_LOCK_DURATION","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"LIQUIDITY_PERCENTAGE","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"MAX_CONTRIBUTION","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"MIN_CONTRIBUTION","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"PRESALE_MAX_BNB","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"PRESALE_TOKENS","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"TEAM_TOKENS","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"TOKENS_PER_BNB","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"TOTAL_SUPPLY","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"addLiquidity","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"spender","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"contributions","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"emergencyWithdraw","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"fundingWallet","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"liquidityAdded","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"liquidityUnlockTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"lpTokenAddress","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"pancakeRouter","outputs":[{"internalType":"contract IUniswapV2Router02","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"presaleEnded","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalBNBReceived","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"unlockLiquidity","outputs":[],"stateMutability":"nonpayable","type":"function"},{"stateMutability":"payable","type":"receive"}];
     
-    // BSC Mainnet Configuration
-    const BSC_CHAIN_ID = 56;
-    const BSC_RPC_URL = 'https://bsc-dataseed.binance.org/';
-    
-    document.addEventListener('DOMContentLoaded', function() {
-        // DOM Elements
-        const connectWalletBtn = document.getElementById('connectWalletBtn');
-        const copyButton = document.getElementById('copyButton');
-        const buyButton = document.getElementById('buyButton');
-        const bnbInput = document.getElementById('bnbInput');
-        const tokenOutput = document.getElementById('tokenOutput');
-        const walletInfo = document.getElementById('walletInfo');
-        const walletAddress = document.getElementById('walletAddress');
-        const progressFill = document.getElementById('progressFill');
-        const progressText = document.getElementById('progressText');
-        const priceRate = document.getElementById('priceRate');
-        const buyNote = document.getElementById('buyNote');
+        // BSC Mainnet Configuration
+        const BSC_CHAIN_ID = 56;
+        const BSC_RPC_URL = 'https://bsc-dataseed.binance.org/';
         
-        // Global variables
-        let web3;
-        let contract;
-        let account = null;
-        let minContribution = 0.1;
-        let maxContribution = 5;
-        let tokensPerBNB = 500000;
-        let presaleMaxBNB = 1500;
-        
-        // Initialize contract
-        async function initContract() {
-            try {
-                // Initialize Web3
-                if (window.ethereum) {
-                    web3 = new Web3(window.ethereum);
-                } else {
-                    web3 = new Web3(new Web3.providers.HttpProvider(BSC_RPC_URL));
-                }
-                
-                // Initialize contract
-                contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
-                
-                // Fetch contract constants
-                tokensPerBNB = await contract.methods.TOKENS_PER_BNB().call();
-                minContribution = web3.utils.fromWei(
-                    await contract.methods.MIN_CONTRIBUTION().call(), 
-                    'ether'
-                );
-                maxContribution = web3.utils.fromWei(
-                    await contract.methods.MAX_CONTRIBUTION().call(), 
-                    'ether'
-                );
-                presaleMaxBNB = web3.utils.fromWei(
-                    await contract.methods.PRESALE_MAX_BNB().call(), 
-                    'ether'
-                );
-                
-                // Update UI
-                priceRate.textContent = `1 BNB = ${tokensPerBNB.toLocaleString()} MUSKET`;
-                buyNote.innerHTML = `<i class="fas fa-info-circle"></i> Minimum: ${minContribution} BNB - Maximum: ${maxContribution} BNB per wallet`;
-                
-                // Update progress bar
-                updateProgressBar();
-                
-                // Set up periodic updates
-                setInterval(updateProgressBar, 30000); // Update every 30 seconds
-                
-            } catch (error) {
-                console.error('Error initializing contract:', error);
-                showNotification('Error connecting to contract', 'error');
+        // Web3Modal configuration
+        const web3Modal = new Web3Modal({
+            projectId: 'YOUR_WALLETCONNECT_PROJECT_ID', // Replace with your WalletConnect project ID
+            theme: 'dark',
+            accentColor: 'orange',
+            ethereum: {
+                appName: 'MUSKET Token Presale',
+                chains: [BSC_CHAIN_ID],
+                providers: [
+                    {
+                        package: null, // Use window.ethereum
+                        display: {
+                            name: 'Browser Wallet',
+                            description: 'Connect with your browser wallet (MetaMask, Trust Wallet, etc.)'
+                        }
+                    }
+                ]
             }
-        }
-        
-        // Initialize contract on page load
-        initContract();
-        
-        // Update progress bar with real data
-        async function updateProgressBar() {
-            try {
-                if (!contract) return;
-                
-                const totalBNBWei = await contract.methods.totalBNBReceived().call();
-                const totalBNB = web3.utils.fromWei(totalBNBWei, 'ether');
-                const progressPercentage = (totalBNB / presaleMaxBNB) * 100;
-                
-                progressFill.style.width = `${Math.min(progressPercentage, 100)}%`;
-                progressText.textContent = `${totalBNB} BNB / ${presaleMaxBNB} BNB`;
-                
-                // Check if presale ended
-                const isPresaleEnded = await contract.methods.presaleEnded().call();
-                if (isPresaleEnded) {
-                    bnbInput.disabled = true;
-                    buyButton.disabled = true;
-                    buyButton.innerHTML = '<i class="fas fa-ban"></i> PRESALE ENDED';
-                    showNotification('Presale has ended!', 'info');
-                }
-                
-            } catch (error) {
-                console.error('Error updating progress bar:', error);
-            }
-        }
-        
-        // Update token calculation
-        function updateTokenCalculation() {
-            const bnbAmount = parseFloat(bnbInput.value) || 0;
-            const tokens = bnbAmount * tokensPerBNB;
-            tokenOutput.textContent = tokens.toLocaleString();
-        }
-        
-        // Initialize
-        bnbInput.addEventListener('input', updateTokenCalculation);
-        updateTokenCalculation();
-        
-        // Copy Contract Address
-        copyButton.addEventListener('click', function() {
-            navigator.clipboard.writeText(CONTRACT_ADDRESS);
-            showNotification('Contract address copied to clipboard!', 'success');
-            copyButton.innerHTML = '<i class="fas fa-check"></i> COPIED!';
-            setTimeout(() => {
-                copyButton.innerHTML = '<i class="fas fa-copy"></i> COPY ADDRESS';
-            }, 2000);
         });
-        
-        // Connect to MetaMask and switch to BSC
-        async function connectMetaMask() {
-            if (window.ethereum) {
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM Elements
+            const connectWalletBtn = document.getElementById('connectWalletBtn');
+            const copyButton = document.getElementById('copyButton');
+            const buyButton = document.getElementById('buyButton');
+            const bnbInput = document.getElementById('bnbInput');
+            const tokenOutput = document.getElementById('tokenOutput');
+            const walletInfo = document.getElementById('walletInfo');
+            const walletAddress = document.getElementById('walletAddress');
+            const progressFill = document.getElementById('progressFill');
+            const progressText = document.getElementById('progressText');
+            const priceRate = document.getElementById('priceRate');
+            const buyNote = document.getElementById('buyNote');
+            
+            // Global variables
+            let web3;
+            let contract;
+            let account = null;
+            let minContribution = 0.1;
+            let maxContribution = 5;
+            let tokensPerBNB = 500000;
+            let presaleMaxBNB = 1500;
+            
+            // Initialize contract
+            async function initContract() {
                 try {
-                    // Request account access
-                    const accounts = await window.ethereum.request({ 
-                        method: 'eth_requestAccounts' 
-                    });
+                    // Initialize Web3 with read-only provider first
+                    web3 = new Web3(new Web3.providers.HttpProvider(BSC_RPC_URL));
                     
-                    // Switch to BSC network
-                    try {
-                        await window.ethereum.request({
-                            method: 'wallet_switchEthereumChain',
-                            params: [{ chainId: `0x${BSC_CHAIN_ID.toString(16)}` }],
+                    // Initialize contract
+                    contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
+                    
+                    // Fetch contract constants
+                    tokensPerBNB = await contract.methods.TOKENS_PER_BNB().call();
+                    minContribution = web3.utils.fromWei(
+                        await contract.methods.MIN_CONTRIBUTION().call(), 
+                        'ether'
+                    );
+                    maxContribution = web3.utils.fromWei(
+                        await contract.methods.MAX_CONTRIBUTION().call(), 
+                        'ether'
+                    );
+                    presaleMaxBNB = web3.utils.fromWei(
+                        await contract.methods.PRESALE_MAX_BNB().call(), 
+                        'ether'
+                    );
+                    
+                    // Update UI
+                    priceRate.textContent = `1 BNB = ${tokensPerBNB.toLocaleString()} MUSKET`;
+                    buyNote.innerHTML = `<i class="fas fa-info-circle"></i> Minimum: ${minContribution} BNB - Maximum: ${maxContribution} BNB per wallet`;
+                    
+                    // Update progress bar
+                    updateProgressBar();
+                    
+                    // Set up periodic updates
+                    setInterval(updateProgressBar, 30000); // Update every 30 seconds
+                    
+                } catch (error) {
+                    console.error('Error initializing contract:', error);
+                    showNotification('Error connecting to contract', 'error');
+                }
+            }
+            
+            // Initialize contract on page load
+            initContract();
+            
+            // Update progress bar with real data
+            async function updateProgressBar() {
+                try {
+                    if (!contract) return;
+                    
+                    const totalBNBWei = await contract.methods.totalBNBReceived().call();
+                    const totalBNB = web3.utils.fromWei(totalBNBWei, 'ether');
+                    const progressPercentage = (totalBNB / presaleMaxBNB) * 100;
+                    
+                    progressFill.style.width = `${Math.min(progressPercentage, 100)}%`;
+                    progressText.textContent = `${totalBNB} BNB / ${presaleMaxBNB} BNB`;
+                    
+                    // Check if presale ended
+                    const isPresaleEnded = await contract.methods.presaleEnded().call();
+                    if (isPresaleEnded) {
+                        bnbInput.disabled = true;
+                        buyButton.disabled = true;
+                        buyButton.innerHTML = '<i class="fas fa-ban"></i> PRESALE ENDED';
+                        showNotification('Presale has ended!', 'info');
+                    }
+                    
+                } catch (error) {
+                    console.error('Error updating progress bar:', error);
+                }
+            }
+            
+            // Update token calculation
+            function updateTokenCalculation() {
+                const bnbAmount = parseFloat(bnbInput.value) || 0;
+                const tokens = bnbAmount * tokensPerBNB;
+                tokenOutput.textContent = tokens.toLocaleString();
+            }
+            
+            // Initialize
+            bnbInput.addEventListener('input', updateTokenCalculation);
+            updateTokenCalculation();
+            
+            // Copy Contract Address
+            copyButton.addEventListener('click', async function() {
+                try {
+                    await navigator.clipboard.writeText(CONTRACT_ADDRESS);
+                    showNotification('Contract address copied to clipboard!', 'success');
+                    copyButton.innerHTML = '<i class="fas fa-check"></i> COPIED!';
+                    setTimeout(() => {
+                        copyButton.innerHTML = '<i class="fas fa-copy"></i> COPY ADDRESS';
+                    }, 2000);
+                } catch (error) {
+                    console.error('Failed to copy:', error);
+                    showNotification('Failed to copy address', 'error');
+                }
+            });
+            
+            // Connect wallet using Web3Modal
+            async function connectWallet() {
+                try {
+                    // Clear any cached provider first
+                    web3Modal.clearCachedProvider();
+                    
+                    // Open wallet selection modal
+                    const web3ModalProvider = await web3Modal.connect();
+                    
+                    // Create new Web3 instance with the selected provider
+                    web3 = new Web3(web3ModalProvider);
+                    
+                    // Get accounts
+                    const accounts = await web3.eth.getAccounts();
+                    account = accounts[0];
+                    
+                    // Check if we're on the correct network
+                    const chainId = await web3.eth.getChainId();
+                    if (chainId !== BSC_CHAIN_ID) {
+                        try {
+                            await switchToBSCNetwork(web3ModalProvider);
+                        } catch (switchError) {
+                            console.error('Error switching network:', switchError);
+                            showNotification('Please switch to Binance Smart Chain', 'error');
+                            return false;
+                        }
+                    }
+                    
+                    // Update UI
+                    walletAddress.textContent = truncateAddress(account);
+                    walletInfo.style.display = 'flex';
+                    
+                    showNotification('Wallet connected successfully!', 'success');
+                    
+                    // Update button text
+                    connectWalletBtn.innerHTML = '<i class="fas fa-coins"></i> BUY MORE TOKENS';
+                    
+                    // Reinitialize contract with the new provider
+                    contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
+                    
+                    // Set up event listeners for account and chain changes
+                    if (web3ModalProvider.on) {
+                        web3ModalProvider.on('accountsChanged', (accounts) => {
+                            if (accounts.length === 0) {
+                                // Wallet disconnected
+                                disconnectWallet();
+                            } else {
+                                // Account changed
+                                account = accounts[0];
+                                walletAddress.textContent = truncateAddress(account);
+                                showNotification('Account changed', 'info');
+                            }
                         });
-                    } catch (switchError) {
-                        // This error code indicates that the chain has not been added to MetaMask
-                        if (switchError.code === 4902) {
-                            await window.ethereum.request({
+                        
+                        web3ModalProvider.on('chainChanged', (chainId) => {
+                            const newChainId = parseInt(chainId, 16);
+                            if (newChainId !== BSC_CHAIN_ID) {
+                                showNotification('Please switch to Binance Smart Chain', 'error');
+                            }
+                        });
+                        
+                        web3ModalProvider.on('disconnect', () => {
+                            disconnectWallet();
+                        });
+                    }
+                    
+                    return true;
+                } catch (error) {
+                    console.error('Error connecting wallet:', error);
+                    showNotification('Error connecting wallet: ' + error.message, 'error');
+                    return false;
+                }
+            }
+            
+            // Switch to BSC network
+            async function switchToBSCNetwork(provider) {
+                try {
+                    await provider.request({
+                        method: 'wallet_switchEthereumChain',
+                        params: [{ chainId: `0x${BSC_CHAIN_ID.toString(16)}` }],
+                    });
+                    return true;
+                } catch (switchError) {
+                    // This error code indicates that the chain has not been added to MetaMask
+                    if (switchError.code === 4902) {
+                        try {
+                            await provider.request({
                                 method: 'wallet_addEthereumChain',
                                 params: [{
                                     chainId: `0x${BSC_CHAIN_ID.toString(16)}`,
@@ -1863,129 +1954,125 @@
                                     blockExplorerUrls: ['https://bscscan.com/']
                                 }],
                             });
-                        } else {
-                            throw switchError;
+                            return true;
+                        } catch (addError) {
+                            console.error('Error adding BSC network:', addError);
+                            throw addError;
                         }
                     }
-                    
-                    account = accounts[0];
-                    
-                    // Update UI
-                    walletAddress.textContent = truncateAddress(account);
-                    walletInfo.style.display = 'flex';
-                    
-                    showNotification('Wallet connected successfully!', 'success');
-                    
-                    // Update button text
-                    connectWalletBtn.innerHTML = '<i class="fas fa-coins"></i> BUY MORE TOKENS';
-                    
-                    return true;
-                } catch (error) {
-                    showNotification('Error connecting wallet: ' + error.message, 'error');
-                    return false;
+                    throw switchError;
                 }
-            } else {
-                showNotification('Please install a Web3 wallet like MetaMask!', 'error');
-                return false;
-            }
-        }
-        
-        // Truncate wallet address
-        function truncateAddress(address) {
-            return address.substring(0, 6) + '...' + address.substring(address.length - 4);
-        }
-        
-        // Buy Tokens - Real transaction
-        async function buyTokens() {
-            if (!account) {
-                showNotification('Please connect your wallet first!', 'error');
-                return;
             }
             
-            const bnbAmount = parseFloat(bnbInput.value);
-            if (!bnbAmount || bnbAmount < minContribution || bnbAmount > maxContribution) {
-                showNotification(`Please enter a valid amount between ${minContribution} and ${maxContribution} BNB`, 'error');
-                return;
+            // Disconnect wallet
+            function disconnectWallet() {
+                account = null;
+                walletInfo.style.display = 'none';
+                connectWalletBtn.innerHTML = '<i class="fas fa-rocket"></i> BUY MUSKET TOKENS';
+                showNotification('Wallet disconnected', 'info');
+                
+                // Reinitialize with read-only provider
+                web3 = new Web3(new Web3.providers.HttpProvider(BSC_RPC_URL));
+                contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
             }
             
-            try {
-                // Check presale status
-                const isPresaleEnded = await contract.methods.presaleEnded().call();
-                if (isPresaleEnded) {
-                    showNotification('Presale has ended!', 'error');
+            // Truncate wallet address
+            function truncateAddress(address) {
+                if (!address) return '';
+                return address.substring(0, 6) + '...' + address.substring(address.length - 4);
+            }
+            
+            // Buy Tokens - Real transaction
+            async function buyTokens() {
+                if (!account) {
+                    const connected = await connectWallet();
+                    if (!connected) return;
+                }
+                
+                const bnbAmount = parseFloat(bnbInput.value);
+                if (!bnbAmount || bnbAmount < minContribution || bnbAmount > maxContribution) {
+                    showNotification(`Please enter a valid amount between ${minContribution} and ${maxContribution} BNB`, 'error');
                     return;
                 }
                 
-                // Convert BNB to wei
-                const weiAmount = web3.utils.toWei(bnbAmount.toString(), 'ether');
-                
-                showNotification('Processing your purchase...', 'info');
-                
-                // Send transaction
-                const receipt = await web3.eth.sendTransaction({
-                    from: account,
-                    to: CONTRACT_ADDRESS,
-                    value: weiAmount
-                });
-                
-                showNotification(`Success! You bought ${(bnbAmount * tokensPerBNB).toLocaleString()} MUSKET tokens`, 'success');
-                
-                // Update progress bar
-                updateProgressBar();
-                
-                // Reset input
-                bnbInput.value = '';
-                tokenOutput.textContent = '0';
-                
-            } catch (error) {
-                console.error('Transaction failed:', error);
-                showNotification('Transaction failed: ' + error.message, 'error');
+                try {
+                    // Check presale status
+                    const isPresaleEnded = await contract.methods.presaleEnded().call();
+                    if (isPresaleEnded) {
+                        showNotification('Presale has ended!', 'error');
+                        return;
+                    }
+                    
+                    // Convert BNB to wei
+                    const weiAmount = web3.utils.toWei(bnbAmount.toString(), 'ether');
+                    
+                    showNotification('Processing your purchase...', 'info');
+                    
+                    // Send transaction
+                    const receipt = await web3.eth.sendTransaction({
+                        from: account,
+                        to: CONTRACT_ADDRESS,
+                        value: weiAmount
+                    });
+                    
+                    showNotification(`Success! You bought ${(bnbAmount * tokensPerBNB).toLocaleString()} MUSKET tokens`, 'success');
+                    
+                    // Update progress bar
+                    updateProgressBar();
+                    
+                    // Reset input
+                    bnbInput.value = '';
+                    tokenOutput.textContent = '0';
+                    
+                } catch (error) {
+                    console.error('Transaction failed:', error);
+                    showNotification('Transaction failed: ' + (error.message || error), 'error');
+                }
             }
-        }
-        
-        // Notification function
-        function showNotification(message, type) {
-            const notification = document.createElement('div');
-            notification.className = `notification ${type}`;
-            notification.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i> ${message}`;
-            document.body.appendChild(notification);
             
-            // Show notification
-            setTimeout(() => {
-                notification.classList.add('show');
-            }, 10);
-            
-            // Hide after 3 seconds
-            setTimeout(() => {
-                notification.classList.remove('show');
-                setTimeout(() => notification.remove(), 300);
-            }, 3000);
-        }
-        
-        // Event Listeners
-        connectWalletBtn.addEventListener('click', async function() {
-            if (!account) {
-                await connectMetaMask();
-            } else {
-                buyTokens();
+            // Notification function
+            function showNotification(message, type) {
+                const notification = document.createElement('div');
+                notification.className = `notification ${type}`;
+                notification.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i> ${message}`;
+                document.body.appendChild(notification);
+                
+                // Show notification
+                setTimeout(() => {
+                    notification.classList.add('show');
+                }, 10);
+                
+                // Hide after 3 seconds
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                    setTimeout(() => notification.remove(), 300);
+                }, 3000);
             }
-        });
-        
-        buyButton.addEventListener('click', buyTokens);
-        
-        // Smooth scrolling for navigation
-        document.querySelectorAll('nav a').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                window.scrollTo({
-                    top: targetElement.offsetTop - 80,
-                    behavior: 'smooth'
+            
+            // Event Listeners
+            connectWalletBtn.addEventListener('click', async function() {
+                if (!account) {
+                    await connectWallet();
+                } else {
+                    buyTokens();
+                }
+            });
+            
+            buyButton.addEventListener('click', buyTokens);
+            
+            // Smooth scrolling for navigation
+            document.querySelectorAll('nav a').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
                 });
             });
         });
-    });
-</script>
+    </script>
 </body>
 </html>
