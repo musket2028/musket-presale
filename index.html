@@ -70,6 +70,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
         }
         
         .logo-container {
@@ -113,6 +114,7 @@
             display: flex;
             gap: 30px;
             list-style: none;
+            flex-wrap: wrap;
         }
         
         nav a {
@@ -147,6 +149,7 @@
             padding: 8px 15px;
             border-radius: 30px;
             border: 1px solid var(--meme-pink);
+            margin: 10px 0;
         }
         
         .wallet-address {
@@ -1208,7 +1211,7 @@
             border-left: 6px solid var(--meme-blue);
         }
         
-        /* Wallet Modal Styles */
+        /* Wallet Modal Styles - ò«„·« »«“‰ÊÌ”Ì ‘œÂ */
         .wallet-modal {
             position: fixed;
             top: 0;
@@ -1272,24 +1275,29 @@
         }
         
         .wallet-options {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
             margin-top: 20px;
         }
         
         .wallet-option {
+            flex: 0 0 calc(33.333% - 20px);
+            max-width: calc(33.333% - 20px);
             background: rgba(255, 215, 0, 0.1);
             border: 2px solid var(--meme-blue);
             border-radius: 15px;
-            padding: 25px 15px;
+            padding: 20px 10px;
             text-align: center;
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 15px;
+            justify-content: center;
+            min-height: 120px;
+            box-sizing: border-box;
         }
         
         .wallet-option:hover {
@@ -1300,15 +1308,16 @@
         }
         
         .wallet-option i {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             color: var(--meme-yellow);
+            margin-bottom: 10px;
         }
         
         .wallet-option span {
             font-weight: 700;
             color: var(--light-gray);
             font-family: 'Comic Neue', cursive;
-            font-size: 1.2rem;
+            font-size: 1rem;
         }
         
         @keyframes pulse {
@@ -1361,7 +1370,6 @@
                 margin: 0 auto;
             }
             
-            /* Trust section responsive */
             .trust-cards {
                 grid-template-columns: 1fr;
             }
@@ -1372,6 +1380,11 @@
             
             .trust-guarantee p {
                 font-size: 1.2rem;
+            }
+            
+            .wallet-option {
+                flex: 0 0 calc(50% - 15px);
+                max-width: calc(50% - 15px);
             }
         }
         
@@ -1394,13 +1407,14 @@
             
             nav ul {
                 gap: 10px;
-                flex-wrap: wrap;
                 justify-content: center;
+                margin-top: 15px;
             }
             
             .header-content {
                 flex-direction: column;
                 gap: 15px;
+                align-items: center;
             }
             
             .section-title h2 {
@@ -1429,8 +1443,40 @@
                 font-size: 1.1rem;
             }
             
-            .wallet-options {
-                grid-template-columns: 1fr;
+            .wallet-option {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+            
+            .logo-text {
+                font-size: 1.8rem;
+            }
+            
+            .circular-logo {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .card h2 {
+                font-size: 1.8rem;
+            }
+            
+            .contract-address {
+                font-size: 1rem;
+            }
+            
+            .price-rate {
+                font-size: 1.2rem;
+            }
+            
+            .input-group input {
+                padding: 15px 20px;
+                font-size: 1.1rem;
+            }
+            
+            .input-group span {
+                padding: 0 20px;
+                font-size: 1.1rem;
             }
         }
         
@@ -1497,6 +1543,26 @@
             .trust-guarantee p {
                 font-size: 1.1rem;
             }
+            
+            .wallet-option {
+                padding: 15px 8px;
+            }
+            
+            .wallet-option i {
+                font-size: 1.8rem;
+            }
+            
+            .wallet-option span {
+                font-size: 0.9rem;
+            }
+            
+            .roadmap-content {
+                padding: 20px;
+            }
+            
+            .about-content {
+                padding: 30px 20px;
+            }
         }
     </style>
 </head>
@@ -1521,7 +1587,11 @@
                 </div>
                 <div class="wallet-option" id="coinbaseOption">
                     <i class="fab fa-bitcoin"></i>
-                    <span>Coinbase Wallet</span>
+                    <span>Coinbase</span>
+                </div>
+                <div class="wallet-option" id="safePalOption">
+                    <i class="fas fa-mobile-alt"></i>
+                    <span>SafePal</span>
                 </div>
             </div>
         </div>
@@ -1534,7 +1604,7 @@
                     <div class="circular-logo">
                         <img src="logo.png" alt="MUSKET Logo">
                     </div>
-                    <div class="logo-text"></div>
+                    <div class="logo-text">MUSKET</div>
                 </div>
                 <nav>
                     <ul>
@@ -1868,6 +1938,7 @@
         const walletConnectOption = document.getElementById('walletConnectOption');
         const trustWalletOption = document.getElementById('trustWalletOption');
         const coinbaseOption = document.getElementById('coinbaseOption');
+        const safePalOption = document.getElementById('safePalOption');
         
         // Global variables
         let web3;
@@ -1999,13 +2070,66 @@
             walletModal.classList.remove('active');
         }
         
+        // Detect installed wallets
+        function detectWallet() {
+            const wallets = {
+                metamask: typeof window.ethereum !== 'undefined' && window.ethereum.isMetaMask,
+                trust: typeof window.ethereum !== 'undefined' && window.ethereum.isTrust,
+                safepal: typeof window.safepal !== 'undefined',
+                coinbase: typeof window.ethereum !== 'undefined' && window.ethereum.isCoinbaseWallet
+            };
+            return wallets;
+        }
+        
         // Connect to wallet
-        async function connectWallet(providerType = 'injected') {
+        async function connectWallet(walletType) {
             try {
                 closeWalletModal();
                 showNotification('Connecting to wallet...', 'info');
                 
-                const provider = await web3Modal.connectTo(providerType);
+                let provider;
+                const detectedWallets = detectWallet();
+                
+                // Handle each wallet type specifically
+                switch(walletType) {
+                    case 'metamask':
+                        if (!detectedWallets.metamask) {
+                            throw new Error('MetaMask extension not detected!');
+                        }
+                        provider = await web3Modal.connectTo('injected');
+                        break;
+                        
+                    case 'trust':
+                        if (!detectedWallets.trust) {
+                            throw new Error('Trust Wallet extension not detected!');
+                        }
+                        provider = await web3Modal.connectTo('injected');
+                        break;
+                        
+                    case 'safepal':
+                        if (detectedWallets.safepal) {
+                            provider = window.safepal;
+                        } else {
+                            // Fallback to WalletConnect if extension not installed
+                            provider = await web3Modal.connectTo('walletconnect');
+                        }
+                        break;
+                        
+                    case 'coinbase':
+                        if (!detectedWallets.coinbase) {
+                            throw new Error('Coinbase Wallet extension not detected!');
+                        }
+                        provider = await web3Modal.connectTo('injected');
+                        break;
+                        
+                    case 'walletconnect':
+                        provider = await web3Modal.connectTo('walletconnect');
+                        break;
+                        
+                    default:
+                        throw new Error('Unknown wallet type');
+                }
+                
                 web3 = new Web3(provider);
                 
                 const accounts = await web3.eth.getAccounts();
@@ -2040,7 +2164,7 @@
                 return true;
             } catch (error) {
                 console.error('Error connecting wallet:', error);
-                showNotification('Error connecting wallet: ' + error.message, 'error');
+                showNotification(`Error: ${error.message}`, 'error');
                 return false;
             }
         }
@@ -2155,10 +2279,11 @@
         });
         
         // Wallet options event listeners
-        metamaskOption.addEventListener('click', () => connectWallet('injected'));
+        metamaskOption.addEventListener('click', () => connectWallet('metamask'));
         walletConnectOption.addEventListener('click', () => connectWallet('walletconnect'));
-        trustWalletOption.addEventListener('click', () => connectWallet('injected'));
-        coinbaseOption.addEventListener('click', () => connectWallet('injected'));
+        trustWalletOption.addEventListener('click', () => connectWallet('trust'));
+        coinbaseOption.addEventListener('click', () => connectWallet('coinbase'));
+        safePalOption.addEventListener('click', () => connectWallet('safepal'));
         
         buyButton.addEventListener('click', buyTokens);
         
