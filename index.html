@@ -1872,6 +1872,8 @@
         // Global variables
         let web3;
         let contract;
+        let readContract; // Contract instance for read-only operations
+        let writeContract; // Contract instance for write operations
         let account = null;
         let minContribution = 0.1;
         let maxContribution = 5;
@@ -1896,24 +1898,28 @@
             providerOptions
         });
         
-        // Initialize contract
-        async function initContract() {
+        // Initialize read-only contract
+        async function initReadContract() {
             try {
-                // Initialize contract
-                contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
+                // Create a read-only provider
+                const readProvider = new Web3.providers.HttpProvider(BSC_RPC_URL);
+                const readWeb3 = new Web3(readProvider);
+                
+                // Initialize read-only contract
+                readContract = new readWeb3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
                 
                 // Fetch contract constants
-                tokensPerBNB = await contract.methods.TOKENS_PER_BNB().call();
-                minContribution = web3.utils.fromWei(
-                    await contract.methods.MIN_CONTRIBUTION().call(), 
+                tokensPerBNB = await readContract.methods.TOKENS_PER_BNB().call();
+                minContribution = readWeb3.utils.fromWei(
+                    await readContract.methods.MIN_CONTRIBUTION().call(), 
                     'ether'
                 );
-                maxContribution = web3.utils.fromWei(
-                    await contract.methods.MAX_CONTRIBUTION().call(), 
+                maxContribution = readWeb3.utils.fromWei(
+                    await readContract.methods.MAX_CONTRIBUTION().call(), 
                     'ether'
                 );
-                presaleMaxBNB = web3.utils.fromWei(
-                    await contract.methods.PRESALE_MAX_BNB().call(), 
+                presaleMaxBNB = readWeb3.utils.fromWei(
+                    await readContract.methods.PRESALE_MAX_BNB().call(), 
                     'ether'
                 );
                 
@@ -1924,32 +1930,32 @@
                 // Update progress bar
                 updateProgressBar();
                 
-                // Set up periodic updates
+                // Set up periodic updates for progress bar
                 setInterval(updateProgressBar, 30000); // Update every 30 seconds
                 
             } catch (error) {
-                console.error('Error initializing contract:', error);
+                console.error('Error initializing read contract:', error);
                 showNotification('Error connecting to contract', 'error');
             }
         }
         
         // Initialize contract on page load
-        if (account) initContract();
+        initReadContract();
         
-        // Update progress bar with real data
+        // Update progress bar with real data (works without wallet connection)
         async function updateProgressBar() {
             try {
-                if (!contract) return;
+                if (!readContract) return;
                 
-                const totalBNBWei = await contract.methods.totalBNBReceived().call();
-                const totalBNB = web3.utils.fromWei(totalBNBWei, 'ether');
+                const totalBNBWei = await readContract.methods.totalBNBReceived().call();
+                const totalBNB = Web3.utils.fromWei(totalBNBWei, 'ether');
                 const progressPercentage = (totalBNB / presaleMaxBNB) * 100;
                 
                 progressFill.style.width = `${Math.min(progressPercentage, 100)}%`;
                 progressText.textContent = `${totalBNB} BNB / ${presaleMaxBNB} BNB`;
                 
                 // Check if presale ended
-                const isPresaleEnded = await contract.methods.presaleEnded().call();
+                const isPresaleEnded = await readContract.methods.presaleEnded().call();
                 if (isPresaleEnded) {
                     bnbInput.disabled = true;
                     buyButton.disabled = true;
@@ -2005,6 +2011,9 @@
                 const accounts = await web3.eth.getAccounts();
                 account = accounts[0];
                 
+                // Initialize write contract for transactions
+                writeContract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
+                
                 // Event listeners for account/chain changes
                 provider.on("accountsChanged", (accounts) => {
                     account = accounts[0];
@@ -2028,7 +2037,6 @@
                 connectWalletBtn.innerHTML = '<i class="fas fa-coins"></i> BUY MORE TOKENS';
                 
                 showNotification('Wallet connected successfully!', 'success');
-                initContract();
                 return true;
             } catch (error) {
                 console.error('Error connecting wallet:', error);
@@ -2077,7 +2085,7 @@
             
             try {
                 // Check presale status
-                const isPresaleEnded = await contract.methods.presaleEnded().call();
+                const isPresaleEnded = await readContract.methods.presaleEnded().call();
                 if (isPresaleEnded) {
                     showNotification('Presale has ended!', 'error');
                     return;
@@ -2097,7 +2105,7 @@
                 
                 showNotification(`Success! You bought ${(bnbAmount * tokensPerBNB).toLocaleString()} MUSKET tokens`, 'success');
                 
-                // Update progress bar
+                // Update progress bar after purchase
                 updateProgressBar();
                 
                 // Reset input
@@ -2180,8 +2188,8 @@
                     // Update UI
                     updateWalletUI();
                     
-                    // Initialize contract
-                    initContract();
+                    // Initialize write contract
+                    writeContract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
                 } catch (error) {
                     console.error('Could not connect to cached provider:', error);
                 }
