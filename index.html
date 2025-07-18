@@ -6,6 +6,8 @@
     <title>MUSKET - MemeCoin Presale</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/web3@1.6.0/dist/web3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@walletconnect/web3-provider@1.7.8/dist/umd/index.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/web3modal@1.9.10/dist/index.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&family=Nunito:wght@400;700;900&display=swap">
     <style>
         * {
@@ -1206,40 +1208,107 @@
             border-left: 6px solid var(--meme-blue);
         }
         
-        /* Web3Modal Customization */
-        .web3modal-modal-lightbox {
-            background: rgba(0, 0, 0, 0.8) !important;
-            backdrop-filter: blur(10px) !important;
+        /* Wallet Modal Styles */
+        .wallet-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(5, 5, 32, 0.95);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
         }
         
-        .web3modal-modal-container {
-            background: linear-gradient(135deg, #1a0030, #0a0a20) !important;
-            border: 2px solid var(--meme-yellow) !important;
-            border-radius: 20px !important;
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.5) !important;
+        .wallet-modal.active {
+            opacity: 1;
+            visibility: visible;
         }
         
-        .web3modal-provider-container {
-            border: 1px solid var(--meme-pink) !important;
-            border-radius: 15px !important;
-            background: rgba(25, 10, 45, 0.8) !important;
-            transition: all 0.3s ease !important;
+        .wallet-modal-content {
+            background: linear-gradient(135deg, #1a0030, #0a0a20);
+            border-radius: 20px;
+            padding: 40px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.5);
+            border: 3px solid var(--meme-yellow);
+            position: relative;
+            transform: translateY(50px);
+            transition: transform 0.4s ease;
         }
         
-        .web3modal-provider-container:hover {
-            transform: translateY(-5px) !important;
-            box-shadow: 0 10px 25px rgba(255, 0, 170, 0.3) !important;
-            border-color: var(--meme-yellow) !important;
+        .wallet-modal.active .wallet-modal-content {
+            transform: translateY(0);
         }
         
-        .web3modal-provider-name {
-            color: var(--meme-yellow) !important;
-            font-weight: 700 !important;
-            font-family: 'Comic Neue', cursive !important;
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 2rem;
+            color: var(--meme-blue);
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
         
-        .web3modal-provider-description {
-            color: var(--light-gray) !important;
+        .close-modal:hover {
+            color: var(--meme-pink);
+            transform: scale(1.2);
+        }
+        
+        .wallet-modal-content h2 {
+            text-align: center;
+            color: var(--meme-yellow);
+            margin-bottom: 30px;
+            font-family: 'Comic Neue', cursive;
+            font-size: 2.5rem;
+        }
+        
+        .wallet-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .wallet-option {
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px solid var(--meme-blue);
+            border-radius: 15px;
+            padding: 25px 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .wallet-option:hover {
+            background: rgba(255, 0, 170, 0.2);
+            transform: translateY(-5px);
+            border-color: var(--meme-pink);
+            box-shadow: 0 10px 20px rgba(255, 0, 170, 0.3);
+        }
+        
+        .wallet-option i {
+            font-size: 2.5rem;
+            color: var(--meme-yellow);
+        }
+        
+        .wallet-option span {
+            font-weight: 700;
+            color: var(--light-gray);
+            font-family: 'Comic Neue', cursive;
+            font-size: 1.2rem;
         }
         
         @keyframes pulse {
@@ -1359,6 +1428,10 @@
             .trust-card p {
                 font-size: 1.1rem;
             }
+            
+            .wallet-options {
+                grid-template-columns: 1fr;
+            }
         }
         
         @media (max-width: 480px) {
@@ -1428,6 +1501,32 @@
     </style>
 </head>
 <body>
+    <!-- Wallet Selection Modal -->
+    <div id="walletModal" class="wallet-modal">
+        <div class="wallet-modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 class="comic-font">Connect Your Wallet</h2>
+            <div class="wallet-options">
+                <div class="wallet-option" id="metamaskOption">
+                    <i class="fab fa-ethereum"></i>
+                    <span>MetaMask</span>
+                </div>
+                <div class="wallet-option" id="walletConnectOption">
+                    <i class="fas fa-wallet"></i>
+                    <span>WalletConnect</span>
+                </div>
+                <div class="wallet-option" id="trustWalletOption">
+                    <i class="fas fa-lock"></i>
+                    <span>Trust Wallet</span>
+                </div>
+                <div class="wallet-option" id="coinbaseOption">
+                    <i class="fab fa-bitcoin"></i>
+                    <span>Coinbase Wallet</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <header>
         <div class="container">
             <div class="header-content">
@@ -1763,6 +1862,12 @@
         const progressText = document.getElementById('progressText');
         const priceRate = document.getElementById('priceRate');
         const buyNote = document.getElementById('buyNote');
+        const walletModal = document.getElementById('walletModal');
+        const closeModalBtn = document.querySelector('.close-modal');
+        const metamaskOption = document.getElementById('metamaskOption');
+        const walletConnectOption = document.getElementById('walletConnectOption');
+        const trustWalletOption = document.getElementById('trustWalletOption');
+        const coinbaseOption = document.getElementById('coinbaseOption');
         
         // Global variables
         let web3;
@@ -1772,41 +1877,28 @@
         let maxContribution = 5;
         let tokensPerBNB = 500000;
         let presaleMaxBNB = 1500;
-        let web3Modal;
         
         // Initialize Web3Modal
-        function initWeb3Modal() {
-            const providerOptions = {
-                walletconnect: {
-                    package: window.WalletConnectProvider.default,
-                    options: {
-                        rpc: {
-                            56: BSC_RPC_URL
-                        },
-                        chainId: BSC_CHAIN_ID
+        const providerOptions = {
+            walletconnect: {
+                package: WalletConnectProvider.default,
+                options: {
+                    rpc: {
+                        56: BSC_RPC_URL
                     }
-                },
-                binancechainwallet: {
-                    package: true
-                },
-                coinbasewallet: {
-                    package: true
                 }
-            };
+            }
+        };
 
-            web3Modal = new window.Web3Modal.default({
-                cacheProvider: false,
-                providerOptions,
-                theme: "dark"
-            });
-        }
+        const web3Modal = new Web3Modal.default({
+            network: "binance-smart-chain",
+            cacheProvider: true,
+            providerOptions
+        });
         
         // Initialize contract
         async function initContract() {
             try {
-                // Initialize Web3 with read-only provider
-                web3 = new Web3(new Web3.providers.HttpProvider(BSC_RPC_URL));
-                
                 // Initialize contract
                 contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
                 
@@ -1841,9 +1933,8 @@
             }
         }
         
-        // Initialize on page load
-        initWeb3Modal();
-        initContract();
+        // Initialize contract on page load
+        if (account) initContract();
         
         // Update progress bar with real data
         async function updateProgressBar() {
@@ -1892,74 +1983,77 @@
             }, 2000);
         });
         
-        // Connect wallet with Web3Modal
-        async function connectWallet() {
+        // Show wallet modal
+        function showWalletModal() {
+            walletModal.classList.add('active');
+        }
+        
+        // Close wallet modal
+        function closeWalletModal() {
+            walletModal.classList.remove('active');
+        }
+        
+        // Connect to wallet
+        async function connectWallet(providerType = 'injected') {
             try {
-                // Open Web3Modal
-                const provider = await web3Modal.connect();
+                closeWalletModal();
+                showNotification('Connecting to wallet...', 'info');
                 
-                // Initialize Web3 with the provider
+                const provider = await web3Modal.connectTo(providerType);
                 web3 = new Web3(provider);
                 
-                // Get accounts
                 const accounts = await web3.eth.getAccounts();
                 account = accounts[0];
                 
-                // Check network
-                const chainId = await web3.eth.getChainId();
-                if (chainId !== BSC_CHAIN_ID) {
-                    await switchToBSC(provider);
-                }
+                // Event listeners for account/chain changes
+                provider.on("accountsChanged", (accounts) => {
+                    account = accounts[0];
+                    updateWalletUI();
+                });
+                
+                provider.on("chainChanged", (chainId) => {
+                    if (parseInt(chainId) !== BSC_CHAIN_ID) {
+                        showNotification('Please switch to Binance Smart Chain', 'error');
+                    }
+                });
+                
+                provider.on("disconnect", (error) => {
+                    console.log(error);
+                    disconnectWallet();
+                });
                 
                 // Update UI
                 walletAddress.textContent = truncateAddress(account);
                 walletInfo.style.display = 'flex';
-                
-                // Update contract instance
-                contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
-                
-                showNotification('Wallet connected successfully!', 'success');
-                
-                // Update button text
                 connectWalletBtn.innerHTML = '<i class="fas fa-coins"></i> BUY MORE TOKENS';
                 
+                showNotification('Wallet connected successfully!', 'success');
+                initContract();
+                return true;
             } catch (error) {
                 console.error('Error connecting wallet:', error);
                 showNotification('Error connecting wallet: ' + error.message, 'error');
+                return false;
             }
         }
         
-        // Switch to BSC network
-        async function switchToBSC(provider) {
-            try {
-                await provider.request({
-                    method: 'wallet_switchEthereumChain',
-                    params: [{ chainId: `0x${BSC_CHAIN_ID.toString(16)}` }],
-                });
-            } catch (switchError) {
-                // This error code indicates that the chain has not been added to MetaMask
-                if (switchError.code === 4902) {
-                    try {
-                        await provider.request({
-                            method: 'wallet_addEthereumChain',
-                            params: [{
-                                chainId: `0x${BSC_CHAIN_ID.toString(16)}`,
-                                chainName: 'Binance Smart Chain Mainnet',
-                                nativeCurrency: {
-                                    name: 'BNB',
-                                    symbol: 'BNB',
-                                    decimals: 18
-                                },
-                                rpcUrls: [BSC_RPC_URL],
-                                blockExplorerUrls: ['https://bscscan.com/']
-                            }],
-                        });
-                    } catch (addError) {
-                        throw addError;
-                    }
-                } else {
-                    throw switchError;
-                }
+        // Disconnect wallet
+        function disconnectWallet() {
+            account = null;
+            walletInfo.style.display = 'none';
+            connectWalletBtn.innerHTML = '<i class="fas fa-rocket"></i> BUY MUSKET TOKENS';
+            web3Modal.clearCachedProvider();
+        }
+        
+        // Update wallet UI
+        function updateWalletUI() {
+            if (account) {
+                walletAddress.textContent = truncateAddress(account);
+                walletInfo.style.display = 'flex';
+                connectWalletBtn.innerHTML = '<i class="fas fa-coins"></i> BUY MORE TOKENS';
+            } else {
+                walletInfo.style.display = 'none';
+                connectWalletBtn.innerHTML = '<i class="fas fa-rocket"></i> BUY MUSKET TOKENS';
             }
         }
         
@@ -2038,11 +2132,25 @@
         // Event Listeners
         connectWalletBtn.addEventListener('click', async function() {
             if (!account) {
-                await connectWallet();
+                showWalletModal();
             } else {
                 buyTokens();
             }
         });
+        
+        // Wallet modal event listeners
+        closeModalBtn.addEventListener('click', closeWalletModal);
+        walletModal.addEventListener('click', function(e) {
+            if (e.target === walletModal) {
+                closeWalletModal();
+            }
+        });
+        
+        // Wallet options event listeners
+        metamaskOption.addEventListener('click', () => connectWallet('injected'));
+        walletConnectOption.addEventListener('click', () => connectWallet('walletconnect'));
+        trustWalletOption.addEventListener('click', () => connectWallet('injected'));
+        coinbaseOption.addEventListener('click', () => connectWallet('injected'));
         
         buyButton.addEventListener('click', buyTokens);
         
@@ -2058,12 +2166,28 @@
                 });
             });
         });
+        
+        // Check for cached provider on page load
+        window.addEventListener('load', async () => {
+            if (web3Modal.cachedProvider) {
+                try {
+                    const provider = await web3Modal.connect();
+                    web3 = new Web3(provider);
+                    
+                    const accounts = await web3.eth.getAccounts();
+                    account = accounts[0];
+                    
+                    // Update UI
+                    updateWalletUI();
+                    
+                    // Initialize contract
+                    initContract();
+                } catch (error) {
+                    console.error('Could not connect to cached provider:', error);
+                }
+            }
+        });
     });
 </script>
-
-<script src="https://cdn.jsdelivr.net/npm/web3@1.6.1/dist/web3.min.js"></script>
-<script src="https://unpkg.com/@walletconnect/web3-provider@1.8.0/dist/umd/index.min.js"></script>
-<script src="https://unpkg.com/web3modal@1.9.12/dist/index.js"></script>
-
 </body>
 </html>
