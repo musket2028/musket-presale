@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -2084,6 +2082,62 @@
             return wallets;
         }
         
+        // Check network connection
+        async function checkNetwork() {
+            if (!web3) return false;
+            
+            try {
+                const chainId = await web3.eth.getChainId();
+                if (parseInt(chainId) === BSC_CHAIN_ID) {
+                    return true;
+                }
+                
+                showNotification('Please switch to Binance Smart Chain', 'error');
+                return false;
+            } catch (error) {
+                console.error('Error checking network:', error);
+                return false;
+            }
+        }
+        
+        // Switch to BSC network
+        async function switchToBscNetwork() {
+            try {
+                await window.ethereum.request({
+                    method: 'wallet_switchEthereumChain',
+                    params: [{ chainId: `0x${BSC_CHAIN_ID.toString(16)}` }]
+                });
+                return true;
+            } catch (switchError) {
+                // If network not added to wallet
+                if (switchError.code === 4902) {
+                    try {
+                        await window.ethereum.request({
+                            method: 'wallet_addEthereumChain',
+                            params: [{
+                                chainId: `0x${BSC_CHAIN_ID.toString(16)}`,
+                                chainName: 'Binance Smart Chain Mainnet',
+                                nativeCurrency: {
+                                    name: 'Binance Coin',
+                                    symbol: 'BNB',
+                                    decimals: 18
+                                },
+                                rpcUrls: [BSC_RPC_URL],
+                                blockExplorerUrls: ['https://bscscan.com/']
+                            }]
+                        });
+                        return true;
+                    } catch (addError) {
+                        console.error('Error adding BSC network:', addError);
+                        showNotification('Failed to add BSC network to wallet', 'error');
+                        return false;
+                    }
+                }
+                console.error('Error switching network:', switchError);
+                return false;
+            }
+        }
+        
         // Connect to wallet
         async function connectWallet(walletType) {
             try {
@@ -2137,6 +2191,16 @@
                 
                 const accounts = await web3.eth.getAccounts();
                 account = accounts[0];
+                
+                // Check and switch network
+                const isCorrectNetwork = await checkNetwork();
+                if (!isCorrectNetwork) {
+                    const switched = await switchToBscNetwork();
+                    if (!switched) {
+                        disconnectWallet();
+                        return false;
+                    }
+                }
                 
                 // Initialize write contract for transactions
                 writeContract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
@@ -2202,6 +2266,16 @@
             if (!account) {
                 showNotification('Please connect your wallet first!', 'error');
                 return;
+            }
+            
+            // Check network before purchase
+            const isCorrectNetwork = await checkNetwork();
+            if (!isCorrectNetwork) {
+                const switched = await switchToBscNetwork();
+                if (!switched) {
+                    showNotification('Please switch to Binance Smart Chain', 'error');
+                    return;
+                }
             }
             
             const bnbAmount = parseFloat(bnbInput.value);
@@ -2318,6 +2392,12 @@
                     
                     // Initialize write contract
                     writeContract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
+                    
+                    // Check network for cached provider
+                    const isCorrectNetwork = await checkNetwork();
+                    if (!isCorrectNetwork) {
+                        await switchToBscNetwork();
+                    }
                 } catch (error) {
                     console.error('Could not connect to cached provider:', error);
                 }
