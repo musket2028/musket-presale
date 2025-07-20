@@ -1320,6 +1320,235 @@
             font-size: 1rem;
         }
         
+        /* Chatbox Styles */
+        .chatbox-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 9999;
+            transition: all 0.3s ease;
+        }
+
+        .chatbox-toggle {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary), var(--meme-yellow));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(255, 107, 0, 0.6);
+            transition: all 0.3s ease;
+            border: 2px solid var(--meme-blue);
+        }
+
+        .chatbox-toggle:hover {
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 0 12px 30px rgba(255, 0, 170, 0.7);
+        }
+
+        .chatbox-toggle i {
+            font-size: 1.8rem;
+            color: var(--dark);
+        }
+
+        .chatbox {
+            width: 380px;
+            height: 500px;
+            background: linear-gradient(135deg, #1a0030, #0a0a20);
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            border: 3px solid var(--meme-yellow);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        .chatbox.active {
+            display: flex;
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .chatbox-header {
+            background: rgba(25, 10, 45, 0.9);
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--meme-pink);
+        }
+
+        .chatbox-header h3 {
+            color: var(--meme-yellow);
+            font-size: 1.5rem;
+            font-family: 'Comic Neue', cursive;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+        }
+
+        .close-chat {
+            background: transparent;
+            border: none;
+            color: var(--meme-blue);
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .close-chat:hover {
+            color: var(--meme-pink);
+            transform: rotate(90deg);
+        }
+
+        .chatbox-body {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .chat-message {
+            max-width: 85%;
+            padding: 15px;
+            border-radius: 18px;
+            font-size: 1.05rem;
+            line-height: 1.5;
+            position: relative;
+            animation: fadeIn 0.3s ease;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            hyphens: auto;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .bot-message {
+            background: rgba(255, 215, 0, 0.15);
+            border: 2px solid var(--meme-blue);
+            color: var(--light-gray);
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+        }
+
+        .user-message {
+            background: linear-gradient(135deg, var(--primary), var(--meme-pink));
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+        }
+
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .faq-question {
+            background: rgba(106, 0, 244, 0.2);
+            padding: 12px 15px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid var(--meme-blue);
+            font-size: 0.95rem;
+            color: var(--light-gray);
+        }
+
+        .faq-question:hover {
+            background: rgba(255, 215, 0, 0.3);
+            transform: translateX(5px);
+            border-color: var(--meme-yellow);
+        }
+
+        .faq-question i {
+            margin-right: 8px;
+            color: var(--meme-blue);
+        }
+
+        .chatbox-footer {
+            padding: 15px 20px;
+            background: rgba(25, 10, 45, 0.9);
+            border-top: 2px solid var(--meme-pink);
+            display: flex;
+            justify-content: center;
+        }
+
+        .support-link {
+            color: var(--meme-yellow);
+            font-weight: 700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+        }
+
+        .support-link:hover {
+            color: var(--meme-blue);
+            text-decoration: underline;
+        }
+
+        .back-to-faq {
+            background: rgba(255, 107, 0, 0.1);
+            color: var(--meme-yellow);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .back-to-faq:hover {
+            background: rgba(0, 194, 255, 0.2);
+            transform: translateX(-3px);
+        }
+        
+        /* Style for contract address in chat */
+        .contract-address-chat {
+            display: inline-block;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 8px 12px;
+            border-radius: 10px;
+            margin: 8px 0;
+            font-family: monospace;
+            font-size: 0.9rem;
+            word-break: break-all;
+            border: 1px dashed var(--meme-yellow);
+        }
+        
+        .copy-btn-chat {
+            background: rgba(255, 215, 0, 0.2);
+            color: var(--meme-yellow);
+            border: 1px solid var(--meme-yellow);
+            border-radius: 8px;
+            padding: 4px 8px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            margin-top: 5px;
+            transition: all 0.2s ease;
+        }
+        
+        .copy-btn-chat:hover {
+            background: rgba(255, 215, 0, 0.4);
+            transform: translateY(-2px);
+        }
+        
         @keyframes pulse {
             0% { box-shadow: 0 0 15px rgba(255, 215, 0, 0.5); }
             50% { box-shadow: 0 0 30px rgba(255, 215, 0, 0.9); }
@@ -1386,6 +1615,10 @@
             .wallet-option {
                 flex: 0 0 calc(50% - 15px);
                 max-width: calc(50% - 15px);
+            }
+            
+            .chatbox {
+                width: 350px;
             }
         }
         
@@ -1563,6 +1796,27 @@
             
             .about-content {
                 padding: 30px 20px;
+            }
+            
+            .chatbox-container {
+                bottom: 20px;
+                right: 20px;
+            }
+            
+            .chatbox {
+                width: 90vw;
+                height: 70vh;
+                max-height: 500px;
+            }
+            
+            .chatbox-toggle {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .chat-message {
+                font-size: 0.95rem;
+                padding: 12px;
             }
         }
     </style>
@@ -1909,8 +2163,96 @@
             </div>
         </div>
     </footer>
+    
+    <!-- Chatbox -->
+    <div class="chatbox-container">
+        <div class="chatbox" id="chatbox">
+            <div class="chatbox-header">
+                <h3 class="comic-font">MUSKET Support</h3>
+                <button class="close-chat" id="closeChat">×</button>
+            </div>
+            <div class="chatbox-body" id="chatBody">
+                <div class="chat-message bot-message">
+                    <strong>Hello! 👋</strong><br>
+                    I'm MUSKET Support Bot. How can I help you today? 
+                    Choose a question below:
+                </div>
+                
+                <div class="faq-list" id="faqList">
+                    <div class="faq-question" data-id="1">
+                        <i class="fas fa-coins"></i> How can I buy MUSKET tokens?
+                    </div>
+                    <div class="faq-question" data-id="2">
+                        <i class="fas fa-exchange-alt"></i> What is the conversion rate?
+                    </div>
+                    <div class="faq-question" data-id="3">
+                        <i class="fas fa-mobile-alt"></i> Can I buy from my mobile phone?
+                    </div>
+                    <div class="faq-question" data-id="4">
+                        <i class="fas fa-exclamation-triangle"></i> What if my wallet doesn't connect?
+                    </div>
+                    <div class="faq-question" data-id="5">
+                        <i class="fas fa-file-contract"></i> What is the MUSKET contract address?
+                    </div>
+                    <div class="faq-question" data-id="6">
+                        <i class="fas fa-wallet"></i> How to add MUSKET to my wallet?
+                    </div>
+                    <div class="faq-question" data-id="7">
+                        <i class="fas fa-lock"></i> Is liquidity locked?
+                    </div>
+                    <div class="faq-question" data-id="8">
+                        <i class="fas fa-shield-alt"></i> Is the contract verified?
+                    </div>
+                    <div class="faq-question" data-id="9">
+                        <i class="fas fa-hourglass-end"></i> When does the presale end?
+                    </div>
+                    <div class="faq-question" data-id="10">
+                        <i class="fas fa-chart-pie"></i> What is the total supply?
+                    </div>
+                    <div class="faq-question" data-id="11">
+                        <i class="fas fa-star"></i> Why choose MUSKET?
+                    </div>
+                    <div class="faq-question" data-id="12">
+                        <i class="fas fa-users"></i> Who is behind the project?
+                    </div>
+                </div>
+            </div>
+            <div class="chatbox-footer">
+                <a href="https://t.me/muskvsTrumpCoin" target="_blank" class="support-link">
+                    <i class="fab fa-telegram"></i> Join our Telegram for live support
+                </a>
+            </div>
+        </div>
+        <div class="chatbox-toggle" id="chatToggle">
+            <i class="fas fa-comments"></i>
+        </div>
+    </div>
 
     <script>
+        // تابع کپی برای چت باکس (اصلاح شده)
+        function copyToClipboardChat(text) {
+            navigator.clipboard.writeText(text)
+                .then(() => {
+                    // نمایش نوتیفیکیشن
+                    const notification = document.createElement('div');
+                    notification.className = 'notification success';
+                    notification.innerHTML = `<i class="fas fa-check-circle"></i> Contract address copied to clipboard!`;
+                    document.body.appendChild(notification);
+                    
+                    setTimeout(() => {
+                        notification.classList.add('show');
+                    }, 10);
+                    
+                    setTimeout(() => {
+                        notification.classList.remove('show');
+                        setTimeout(() => notification.remove(), 300);
+                    }, 3000);
+                })
+                .catch(err => {
+                    console.error('Failed to copy: ', err);
+                });
+        }
+
         // Contract details
         const CONTRACT_ADDRESS = '0x3FE24F9c439de8744D865dF2Ed9C20b6af7bcd76';
         const CONTRACT_ABI = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"allowance","type":"uint256"},{"internalType":"uint256","name":"needed","type":"uint256"}],"name":"ERC20InsufficientAllowance","type":"error"},{"inputs":[{"internalType":"address","name":"sender","type":"address"},{"internalType":"uint256","name":"balance","type":"uint256"},{"internalType":"uint256","name":"needed","type":"uint256"}],"name":"ERC20InsufficientBalance","type":"error"},{"inputs":[{"internalType":"address","name":"approver","type":"address"}],"name":"ERC20InvalidApprover","type":"error"},{"inputs":[{"internalType":"address","name":"receiver","type":"address"}],"name":"ERC20InvalidReceiver","type":"error"},{"inputs":[{"internalType":"address","name":"sender","type":"address"}],"name":"ERC20InvalidSender","type":"error"},{"inputs":[{"internalType":"address","name":"spender","type":"address"}],"name":"ERC20InvalidSpender","type":"error"},{"inputs":[{"internalType":"address","name":"owner","type":"address"}],"name":"OwnableInvalidOwner","type":"error"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"OwnableUnauthorizedAccount","type":"error"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"bnbAmount","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"tokenAmount","type":"uint256"}],"name":"EmergencyWithdraw","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"lpToken","type":"address"},{"indexed":false,"internalType":"uint256","name":"tokenAmount","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"bnbAmount","type":"uint256"}],"name":"LiquidityAdded","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"unlockTime","type":"uint256"}],"name":"LiquidityLocked","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"endTime","type":"uint256"}],"name":"PresaleEnded","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"buyer","type":"address"},{"indexed":false,"internalType":"uint256","name":"bnbAmount","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"tokenAmount","type":"uint256"}],"name":"TokensPurchased","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"inputs":[],"name":"LIQUIDITY_LOCK_DURATION","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"LIQUIDITY_PERCENTAGE","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"MAX_CONTRIBUTION","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"MIN_CONTRIBUTION","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"PRESALE_MAX_BNB","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"PRESALE_TOKENS","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"TEAM_TOKENS","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"TOKENS_PER_BNB","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"TOTAL_SUPPLY","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"addLiquidity","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"spender","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"contributions","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"emergencyWithdraw","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"fundingWallet","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"liquidityAdded","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"liquidityUnlockTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"lpTokenAddress","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"pancakeRouter","outputs":[{"internalType":"contract IUniswapV2Router02","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"presaleEnded","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalBNBReceived","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"unlockLiquidity","outputs":[],"stateMutability":"nonpayable","type":"function"},{"stateMutability":"payable","type":"receive"}];
@@ -1939,6 +2281,13 @@
         const trustWalletOption = document.getElementById('trustWalletOption');
         const coinbaseOption = document.getElementById('coinbaseOption');
         const safePalOption = document.getElementById('safePalOption');
+        
+        // Chatbox elements
+        const chatbox = document.getElementById('chatbox');
+        const chatToggle = document.getElementById('chatToggle');
+        const closeChat = document.getElementById('closeChat');
+        const chatBody = document.getElementById('chatBody');
+        const faqList = document.getElementById('faqList');
         
         // Global variables
         let web3;
@@ -2335,6 +2684,160 @@
                 notification.classList.remove('show');
                 setTimeout(() => notification.remove(), 300);
             }, 3000);
+        }
+        
+        // Chatbox functionality
+        const faqData = {
+            1: {
+                question: "How can I buy MUSKET tokens?",
+                answer: "💬 Connect your wallet to the website, enter the amount of BNB you want to spend, and click “Buy MUSKET Tokens.”"
+            },
+            2: {
+                question: "What is the conversion rate?",
+                answer: "💬 1 BNB = 500,000 MUSKET tokens."
+            },
+            3: {
+                question: "Can I buy from my mobile phone?",
+                answer: "💬 Yes! Use Trust Wallet, SafePal, or MetaMask on your mobile browser to participate easily."
+            },
+            4: {
+                question: "What if my wallet doesn’t connect or gives an error?",
+                answer: "💬 You can send BNB directly to the contract address below:<br><div class='contract-address-chat'>0x3FE24F9c439de8744D865dF2Ed9C20b6af7bcd76</div><button class='copy-btn-chat' onclick='copyToClipboardChat(\"0x3FE24F9c439de8744D865dF2Ed9C20b6af7bcd76\")'><i class='fas fa-copy'></i> Copy Address</button>"
+            },
+            5: {
+                question: "What is the MUSKET contract address?",
+                answer: "💬 <div class='contract-address-chat'>0x3FE24F9c439de8744D865dF2Ed9C20b6af7bcd76</div><button class='copy-btn-chat' onclick='copyToClipboardChat(\"0x3FE24F9c439de8744D865dF2Ed9C20b6af7bcd76\")'><i class='fas fa-copy'></i> Copy Address</button><br>Always verify the contract address on our official channels."
+            },
+            6: {
+                question: "How can I add MUSKET tokens to my wallet?",
+                answer: "💬 In your wallet (MetaMask, Trust Wallet, etc.), go to “Add Token” and paste the contract address. MUSKET will appear in your wallet."
+            },
+            7: {
+                question: "Is liquidity locked?",
+                answer: "💬 Yes, 20% of all BNB collected is automatically locked on PancakeSwap for 12 months to ensure stability and long-term liquidity."
+            },
+            8: {
+                question: "Is the contract verified?",
+                answer: "💬 Yes! The smart contract is verified on BscScan and fully transparent. You can view it here: <a href='https://bscscan.com/address/0x3FE24F9c439de8744D865dF2Ed9C20b6af7bcd76' target='_blank' style='color: var(--meme-yellow);'>View on BscScan</a>"
+            },
+            9: {
+                question: "When does the presale end?",
+                answer: "💬 The presale ends when the hard cap of 1,500 BNB is reached."
+            },
+            10: {
+                question: "What is the total supply of MUSKET?",
+                answer: "💬 The total supply is 1 billion MUSKET tokens."
+            },
+            11: {
+                question: "Why choose MUSKET? What makes it special?",
+                answer: "💬 MUSKET is a community-driven meme coin with a limited supply, locked liquidity, and viral potential designed to empower holders."
+            },
+            12: {
+                question: "Who is behind the project?",
+                answer: "💬 Our team consists of experienced developers, marketers, and crypto enthusiasts working to make MUSKET a long-term success."
+            }
+        };
+        
+        // Show chatbox
+        chatToggle.addEventListener('click', function() {
+            chatbox.classList.add('active');
+        });
+        
+        // Close chatbox
+        closeChat.addEventListener('click', function() {
+            chatbox.classList.remove('active');
+        });
+        
+        // Handle FAQ question clicks
+        faqList.addEventListener('click', function(e) {
+            if (e.target.classList.contains('faq-question')) {
+                const faqId = e.target.getAttribute('data-id');
+                showAnswer(faqId);
+            }
+        });
+        
+        // Show answer to FAQ question
+        function showAnswer(faqId) {
+            const faq = faqData[faqId];
+            const answerHTML = `
+                <div class="chat-message bot-message">
+                    <strong>${faq.question}</strong>
+                    <div style="margin-top: 10px;">${faq.answer}</div>
+                    <button class="back-to-faq" id="backToFaq">
+                        <i class="fas fa-arrow-left"></i> Back to questions
+                    </button>
+                </div>
+            `;
+            
+            chatBody.innerHTML = answerHTML;
+            
+            // Add event for back button
+            document.getElementById('backToFaq').addEventListener('click', function() {
+                resetChat();
+            });
+            
+            // Scroll to bottom
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+        
+        // Reset chat to FAQ list
+        function resetChat() {
+            chatBody.innerHTML = `
+                <div class="chat-message bot-message">
+                    <strong>Hello! 👋</strong><br>
+                    I'm MUSKET Support Bot. How can I help you today? 
+                    Choose a question below:
+                </div>
+                <div class="faq-list" id="faqList">
+                    <div class="faq-question" data-id="1">
+                        <i class="fas fa-coins"></i> How can I buy MUSKET tokens?
+                    </div>
+                    <div class="faq-question" data-id="2">
+                        <i class="fas fa-exchange-alt"></i> What is the conversion rate?
+                    </div>
+                    <div class="faq-question" data-id="3">
+                        <i class="fas fa-mobile-alt"></i> Can I buy from my mobile phone?
+                    </div>
+                    <div class="faq-question" data-id="4">
+                        <i class="fas fa-exclamation-triangle"></i> What if my wallet doesn't connect?
+                    </div>
+                    <div class="faq-question" data-id="5">
+                        <i class="fas fa-file-contract"></i> What is the MUSKET contract address?
+                    </div>
+                    <div class="faq-question" data-id="6">
+                        <i class="fas fa-wallet"></i> How to add MUSKET to my wallet?
+                    </div>
+                    <div class="faq-question" data-id="7">
+                        <i class="fas fa-lock"></i> Is liquidity locked?
+                    </div>
+                    <div class="faq-question" data-id="8">
+                        <i class="fas fa-shield-alt"></i> Is the contract verified?
+                    </div>
+                    <div class="faq-question" data-id="9">
+                        <i class="fas fa-hourglass-end"></i> When does the presale end?
+                    </div>
+                    <div class="faq-question" data-id="10">
+                        <i class="fas fa-chart-pie"></i> What is the total supply?
+                    </div>
+                    <div class="faq-question" data-id="11">
+                        <i class="fas fa-star"></i> Why choose MUSKET?
+                    </div>
+                    <div class="faq-question" data-id="12">
+                        <i class="fas fa-users"></i> Who is behind the project?
+                    </div>
+                </div>
+            `;
+            
+            // Re-attach event listeners
+            document.getElementById('faqList').addEventListener('click', function(e) {
+                if (e.target.classList.contains('faq-question')) {
+                    const faqId = e.target.getAttribute('data-id');
+                    showAnswer(faqId);
+                }
+            });
+            
+            // Scroll to bottom
+            chatBody.scrollTop = chatBody.scrollHeight;
         }
         
         // Event Listeners
