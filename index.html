@@ -516,6 +516,53 @@
             opacity: 1;
         }
         
+        /* New Add to Wallet Button */
+        .add-wallet-btn {
+            width: 100%;
+            background: linear-gradient(to right, var(--secondary), var(--meme-blue));
+            color: var(--dark);
+            padding: 20px;
+            border-radius: 15px;
+            font-size: 1.5rem;
+            font-weight: 900;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            font-family: 'Comic Neue', cursive;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            margin-top: 15px;
+            box-shadow: 0 8px 25px rgba(0, 194, 255, 0.6);
+        }
+        
+        .add-wallet-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, var(--meme-blue), var(--secondary));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+        
+        .add-wallet-btn:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 10px 30px rgba(0, 194, 255, 0.5);
+        }
+        
+        .add-wallet-btn:hover::after {
+            opacity: 1;
+        }
+        
         .buy-note {
             margin-top: 15px;
             text-align: center;
@@ -1857,7 +1904,7 @@
             <div class="header-content">
                 <div class="logo-container">
                     <div class="circular-logo">
-                        <img src="logo.png" alt="MUSKET Logo">
+                        <img src="https://raw.githubusercontent.com/musket2028/musket-presale/main/logo.png" alt="MUSKET Logo">
                     </div>
                 </div>
                 <nav>
@@ -1941,6 +1988,12 @@
                     <button class="buy-btn" id="buyButton">
                         <i class="fas fa-paper-plane"></i> BUY NOW
                     </button>
+                    
+                    <!-- New Add to Wallet Button -->
+                    <button class="add-wallet-btn" id="addToWalletBtn">
+                        <i class="fas fa-wallet"></i> ADD TO WALLET
+                    </button>
+                    
                     <div class="buy-note" id="buyNote">
                         <i class="fas fa-info-circle"></i> Minimum: 0.1 BNB - Maximum: 5 BNB per wallet
                     </div>
@@ -2024,7 +2077,7 @@
                 
                 <div class="token-logo-container">
                     <div class="token-logo">
-                        <img src="logo.png" alt="MUSKET Token Logo">
+                        <img src="https://raw.githubusercontent.com/musket2028/musket-presale/main/logo.png" alt="MUSKET Token Logo">
                     </div>
                 </div>
             </div>
@@ -2147,7 +2200,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-logo">
-                    <img src="logo.png" alt="MUSKET Logo">
+                    <img src="https://raw.githubusercontent.com/musket2028/musket-presale/main/logo.png" alt="MUSKET Logo">
                 </div>
                 <div class="footer-brand">MUSKET TOKEN</div>
                 <p>The future of meme coins on Binance Smart Chain</p>
@@ -2281,6 +2334,7 @@
         const trustWalletOption = document.getElementById('trustWalletOption');
         const coinbaseOption = document.getElementById('coinbaseOption');
         const safePalOption = document.getElementById('safePalOption');
+        const addToWalletBtn = document.getElementById('addToWalletBtn');
         
         // Chatbox elements
         const chatbox = document.getElementById('chatbox');
@@ -2408,6 +2462,37 @@
                 copyButton.innerHTML = '<i class="fas fa-copy"></i> COPY ADDRESS';
             }, 2000);
         });
+        
+        // Add token to wallet
+        async function addTokenToWallet() {
+            try {
+                if (typeof window.ethereum === 'undefined') {
+                    showNotification('Web3 wallet not detected! Please install MetaMask or Trust Wallet.', 'error');
+                    return;
+                }
+
+                await window.ethereum.request({
+                    method: 'wallet_watchAsset',
+                    params: {
+                        type: 'ERC20',
+                        options: {
+                            address: CONTRACT_ADDRESS,
+                            symbol: 'MUSKET',
+                            decimals: 18,
+                            image: 'https://raw.githubusercontent.com/musket2028/musket-presale/main/logo.png',
+                        },
+                    },
+                });
+                
+                showNotification('MUSKET token added to your wallet!', 'success');
+            } catch (error) {
+                console.error('Error adding token to wallet:', error);
+                showNotification('Failed to add token: ' + error.message, 'error');
+            }
+        }
+
+        // Add event listener for the new button
+        addToWalletBtn.addEventListener('click', addTokenToWallet);
         
         // Show wallet modal
         function showWalletModal() {
