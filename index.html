@@ -2568,51 +2568,64 @@
             }, 2000);
         });
         
-        // Add token to wallet - Improved for all wallet types
+        // Improved function to add token to wallet with support for Trust Wallet
         async function addTokenToWallet() {
             try {
-                if (!window.ethereum && !window.BinanceChain) {
-                    showNotification('Web3 wallet not detected! Please install MetaMask, Trust Wallet or other Web3 wallet.', 'error');
-                    return;
-                }
-
                 // Token details
                 const tokenDetails = {
-                    type: 'ERC20',
-                    options: {
-                        address: CONTRACT_ADDRESS,
-                        symbol: 'MUSKET',
-                        decimals: 18,
-                        image: 'https://raw.githubusercontent.com/musket2028/musket-presale/main/logo.png',
-                    },
+                    address: CONTRACT_ADDRESS,
+                    symbol: 'MUSKET',
+                    decimals: 18,
+                    image: 'https://raw.githubusercontent.com/musket2028/musket-presale/main/logo.png',
                 };
 
-                // Different approaches for different wallets
-                if (currentWalletType === 'trust') {
-                    // Trust Wallet specific approach
-                    const trustWalletDeepLink = `https://link.trustwallet.com/add_token?contract=${CONTRACT_ADDRESS}&name=MUSKET&symbol=MUSKET&decimals=18&image=https://raw.githubusercontent.com/musket2028/musket-presale/main/logo.png`;
+                // Check if we're in Trust Wallet
+                const isTrustWallet = window.ethereum && (window.ethereum.isTrust || window.ethereum.isTrustWallet);
+                
+                if (isTrustWallet) {
+                    // Trust Wallet specific approach - use deep link
+                    const trustWalletDeepLink = `https://link.trustwallet.com/add_token?contract=${tokenDetails.address}&name=MUSKET&symbol=${tokenDetails.symbol}&decimals=${tokenDetails.decimals}&image=${encodeURIComponent(tokenDetails.image)}`;
                     window.open(trustWalletDeepLink, '_blank');
-                } else if (window.ethereum && window.ethereum.isMetaMask) {
+                } 
+                // Check if we're in MetaMask
+                else if (window.ethereum && window.ethereum.isMetaMask) {
                     // MetaMask approach
                     await window.ethereum.request({
                         method: 'wallet_watchAsset',
-                        params: tokenDetails
+                        params: {
+                            type: 'ERC20',
+                            options: tokenDetails
+                        }
                     });
-                } else if (window.BinanceChain) {
+                } 
+                // Check if we're in Binance Chain Wallet
+                else if (window.BinanceChain) {
                     // Binance Chain Wallet approach
-                    await window.BinanceChain.watchAsset(tokenDetails);
-                } else {
-                    // Fallback for other wallets
+                    await window.BinanceChain.watchAsset({
+                        type: 'ERC20',
+                        options: tokenDetails
+                    });
+                } 
+                // Fallback for other wallets that support wallet_watchAsset
+                else if (window.ethereum) {
                     try {
                         await window.ethereum.request({
                             method: 'wallet_watchAsset',
-                            params: tokenDetails
+                            params: {
+                                type: 'ERC20',
+                                options: tokenDetails
+                            }
                         });
                     } catch (e) {
                         // If wallet_watchAsset fails, show manual instructions
                         showNotification('Please add token manually using contract address', 'info');
                         return;
                     }
+                } 
+                // No wallet detected
+                else {
+                    showNotification('Web3 wallet not detected! Please install MetaMask, Trust Wallet or other Web3 wallet.', 'error');
+                    return;
                 }
                 
                 showNotification('MUSKET token added to your wallet!', 'success');
@@ -2622,7 +2635,7 @@
             }
         }
 
-        // Add event listener for the new button
+        // Add event listener for the add to wallet button
         addToWalletBtn.addEventListener('click', addTokenToWallet);
         
         // Show wallet modal
