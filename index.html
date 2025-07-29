@@ -150,6 +150,7 @@
             border-radius: 30px;
             border: 1px solid var(--meme-pink);
             margin: 10px 0;
+            position: relative;
         }
         
         .wallet-address {
@@ -158,6 +159,21 @@
             max-width: 120px;
             overflow: hidden;
             text-overflow: ellipsis;
+        }
+        
+        .disconnect-btn {
+            background: transparent;
+            border: none;
+            color: var(--error);
+            cursor: pointer;
+            font-size: 0.8rem;
+            margin-left: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .disconnect-btn:hover {
+            color: var(--meme-yellow);
+            transform: scale(1.1);
         }
         
         .hero {
@@ -1983,6 +1999,9 @@
                 <div class="wallet-info" id="walletInfo" style="display:none;">
                     <i class="fas fa-wallet"></i>
                     <div class="wallet-address" id="walletAddress"></div>
+                    <button class="disconnect-btn" id="disconnectBtn" title="Disconnect Wallet">
+                        <i class="fas fa-power-off"></i>
+                    </button>
                 </div>
             </div>
         </div>
@@ -2253,11 +2272,11 @@
             </div>
             <div class="about-content">
                 <h2>About MUSKET Token</h2>
-                <p>This isn’t just a token. This is the battlefield where Musk vs Trump unfolds — Elon Musk, the meme king and Mars chaser, facing off against Donald Trump, the political juggernaut and social media disruptor. Two unstoppable forces. Two visions of the future. One token to rule the chaos: MUSKET.</p>
-                <p>MUSKET isn’t here to pick sides. It’s here to ignite the fight. To turn every tweet, every headline, every meme into fuel for the wildest crypto ride of your life.</p>
-                <p>This isn’t about politics. It’s not about business. It’s about pure meme energy — raw, unfiltered, and ready to explode. By holding MUSKET, you’re not just an investor. You’re a warrior in the greatest showdown the internet has ever seen: Musk vs Trump.</p>
+                <p>This isn't just a token. This is the battlefield where Musk vs Trump unfolds — Elon Musk, the meme king and Mars chaser, facing off against Donald Trump, the political juggernaut and social media disruptor. Two unstoppable forces. Two visions of the future. One token to rule the chaos: MUSKET.</p>
+                <p>MUSKET isn't here to pick sides. It's here to ignite the fight. To turn every tweet, every headline, every meme into fuel for the wildest crypto ride of your life.</p>
+                <p>This isn't about politics. It's not about business. It's about pure meme energy — raw, unfiltered, and ready to explode. By holding MUSKET, you're not just an investor. You're a warrior in the greatest showdown the internet has ever seen: Musk vs Trump.</p>
 				<p>Rockets or red hats? Tweets or Teslas? Why choose when you can ride the chaos? MUSKET is for the dreamers, the degens, and the believers who know real power lies in the madness between.</p>
-				<p>So buckle up. Buy in. And watch history turn into a meme-fueled money machine.Because in the world of Musk vs Trump, everyone’s a player… and MUSKET is your ticket to the fight.</p>
+				<p>So buckle up. Buy in. And watch history turn into a meme-fueled money machine.Because in the world of Musk vs Trump, everyone's a player... and MUSKET is your ticket to the fight.</p>
             </div>
         </div>
     </section>
@@ -2354,7 +2373,7 @@
                 </div>
             </div>
             <div class="chatbox-footer">
-                <a href="https://t.me/MusketSupportliveBot" target="_blank" class="support-link">
+                <a href="https://t.me/muskvsTrumpCoin" target="_blank" class="support-link">
                     <i class="fab fa-telegram"></i> Join our Telegram for live support
                 </a>
             </div>
@@ -2418,6 +2437,7 @@
         const coinbaseOption = document.getElementById('coinbaseOption');
         const safePalOption = document.getElementById('safePalOption');
         const addToWalletBtn = document.getElementById('addToWalletBtn');
+        const disconnectBtn = document.getElementById('disconnectBtn');
         
         // Chatbox elements
         const chatbox = document.getElementById('chatbox');
@@ -2436,6 +2456,7 @@
         let maxContribution = 5;
         let tokensPerBNB = 500000;
         let presaleMaxBNB = 1500;
+        let provider = null;
         
         // Initialize Web3Modal
         const providerOptions = {
@@ -2451,7 +2472,7 @@
 
         const web3Modal = new Web3Modal.default({
             network: "binance-smart-chain",
-            cacheProvider: true,
+            cacheProvider: false, // Changed to false to prevent automatic reconnection
             providerOptions
         });
         
@@ -2660,7 +2681,6 @@
                 closeWalletModal();
                 showNotification('Connecting to wallet...', 'info');
                 
-                let provider;
                 const detectedWallets = detectWallet();
                 
                 // Handle each wallet type specifically
@@ -2739,9 +2759,7 @@
                 });
                 
                 // Update UI
-                walletAddress.textContent = truncateAddress(account);
-                walletInfo.style.display = 'flex';
-                connectWalletBtn.innerHTML = '<i class="fas fa-coins"></i> BUY MORE TOKENS';
+                updateWalletUI();
                 
                 showNotification('Wallet connected successfully!', 'success');
                 return true;
@@ -2754,10 +2772,19 @@
         
         // Disconnect wallet
         function disconnectWallet() {
+            if (provider && provider.close) {
+                provider.close();
+            }
+            
             account = null;
-            walletInfo.style.display = 'none';
-            connectWalletBtn.innerHTML = '<i class="fas fa-rocket"></i> BUY MUSKET TOKENS';
+            provider = null;
+            web3 = null;
+            writeContract = null;
+            
+            updateWalletUI();
             web3Modal.clearCachedProvider();
+            
+            showNotification('Wallet disconnected', 'info');
         }
         
         // Update wallet UI
@@ -2858,7 +2885,7 @@
         const faqData = {
             1: {
                 question: "How can I buy MUSKET tokens?",
-                answer: "💬 Connect your wallet to the website, enter the amount of BNB you want to spend, and click “Buy MUSKET Tokens.”"
+                answer: "💬 Connect your wallet to the website, enter the amount of BNB you want to spend, and click 'Buy MUSKET Tokens.'"
             },
             2: {
                 question: "What is the conversion rate?",
@@ -2869,7 +2896,7 @@
                 answer: "💬 Yes! Use Trust Wallet, SafePal, or MetaMask on your mobile browser to participate easily."
             },
             4: {
-                question: "What if my wallet doesn’t connect or gives an error?",
+                question: "What if my wallet doesn't connect or gives an error?",
                 answer: "💬 You can send BNB directly to the contract address below:<br><div class='contract-address-chat'>0x3FE24F9c439de8744D865dF2Ed9C20b6af7bcd76</div><button class='copy-btn-chat' onclick='copyToClipboardChat(\"0x3FE24F9c439de8744D865dF2Ed9C20b6af7bcd76\")'><i class='fas fa-copy'></i> Copy Address</button>"
             },
             5: {
@@ -2878,7 +2905,7 @@
             },
             6: {
                 question: "How can I add MUSKET tokens to my wallet?",
-                answer: "💬 In your wallet (MetaMask, Trust Wallet, etc.), go to “Add Token” and paste the contract address. MUSKET will appear in your wallet."
+                answer: "💬 In your wallet (MetaMask, Trust Wallet, etc.), go to 'Add Token' and paste the contract address. MUSKET will appear in your wallet."
             },
             7: {
                 question: "Is liquidity locked?",
@@ -3017,6 +3044,9 @@
             }
         });
         
+        // Disconnect button event listener
+        disconnectBtn.addEventListener('click', disconnectWallet);
+        
         // Wallet modal event listeners
         closeModalBtn.addEventListener('click', closeWalletModal);
         walletModal.addEventListener('click', function(e) {
@@ -3047,32 +3077,7 @@
             });
         });
         
-        // Check for cached provider on page load
-        window.addEventListener('load', async () => {
-            if (web3Modal.cachedProvider) {
-                try {
-                    const provider = await web3Modal.connect();
-                    web3 = new Web3(provider);
-                    
-                    const accounts = await web3.eth.getAccounts();
-                    account = accounts[0];
-                    
-                    // Update UI
-                    updateWalletUI();
-                    
-                    // Initialize write contract
-                    writeContract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
-                    
-                    // Check network for cached provider
-                    const isCorrectNetwork = await checkNetwork();
-                    if (!isCorrectNetwork) {
-                        await switchToBscNetwork();
-                    }
-                } catch (error) {
-                    console.error('Could not connect to cached provider:', error);
-                }
-            }
-        });
+        // Check for cached provider on page load - removed to prevent automatic reconnection
     });
 </script>
 </body>
