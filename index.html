@@ -2608,12 +2608,12 @@
             walletModal.classList.remove('active');
         }
         
-        // Detect installed wallets with better precision
+        // Improved wallet detection
         function detectWallet() {
             const ethereum = window.ethereum;
             const wallets = {
                 metamask: ethereum && ethereum.isMetaMask,
-                trust: ethereum && ethereum.isTrust,
+                trust: ethereum && (ethereum.isTrust || ethereum.isTrustWallet),
                 safepal: typeof window.safepal !== 'undefined',
                 coinbase: ethereum && ethereum.isCoinbaseWallet
             };
@@ -2690,16 +2690,20 @@
                         if (!detectedWallets.metamask) {
                             throw new Error('MetaMask extension not detected!');
                         }
-                        // Use window.ethereum directly for MetaMask
+                        // Explicitly select MetaMask provider
                         provider = window.ethereum;
+                        // Set isMetaMask flag to ensure MetaMask is used
+                        provider.isMetaMask = true;
                         break;
                         
                     case 'trust':
                         if (!detectedWallets.trust) {
                             throw new Error('Trust Wallet extension not detected!');
                         }
-                        // Use window.ethereum directly for Trust Wallet
+                        // Explicitly select Trust Wallet provider
                         provider = window.ethereum;
+                        // Set isTrust flag to ensure Trust Wallet is used
+                        provider.isTrust = true;
                         break;
                         
                     case 'safepal':
@@ -2799,7 +2803,7 @@
                 connectWalletBtn.innerHTML = '<i class="fas fa-coins"></i> BUY MORE TOKENS';
             } else {
                 walletInfo.style.display = 'none';
-                connectWalletBtn.innerHTML = '<i class="fas fa-rocket"></i> BUY MUSKET TOKENS';
+                connectWalletBtn.innerHTML = '<i class="fas fa-rocket"></i> CONNECT WALLET';
             }
         }
         
