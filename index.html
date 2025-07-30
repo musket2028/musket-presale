@@ -150,7 +150,6 @@
             border-radius: 30px;
             border: 1px solid var(--meme-pink);
             margin: 10px 0;
-            position: relative;
         }
         
         .wallet-address {
@@ -159,21 +158,6 @@
             max-width: 120px;
             overflow: hidden;
             text-overflow: ellipsis;
-        }
-        
-        .disconnect-btn {
-            background: transparent;
-            border: none;
-            color: var(--error);
-            cursor: pointer;
-            font-size: 0.8rem;
-            margin-left: 5px;
-            transition: all 0.3s ease;
-        }
-        
-        .disconnect-btn:hover {
-            color: var(--meme-yellow);
-            transform: scale(1.1);
         }
         
         .hero {
@@ -1999,9 +1983,6 @@
                 <div class="wallet-info" id="walletInfo" style="display:none;">
                     <i class="fas fa-wallet"></i>
                     <div class="wallet-address" id="walletAddress"></div>
-                    <button class="disconnect-btn" id="disconnectBtn" title="Disconnect Wallet">
-                        <i class="fas fa-power-off"></i>
-                    </button>
                 </div>
             </div>
         </div>
@@ -2272,11 +2253,11 @@
             </div>
             <div class="about-content">
                 <h2>About MUSKET Token</h2>
-                <p>This isn't just a token. This is the battlefield where Musk vs Trump unfolds — Elon Musk, the meme king and Mars chaser, facing off against Donald Trump, the political juggernaut and social media disruptor. Two unstoppable forces. Two visions of the future. One token to rule the chaos: MUSKET.</p>
-                <p>MUSKET isn't here to pick sides. It's here to ignite the fight. To turn every tweet, every headline, every meme into fuel for the wildest crypto ride of your life.</p>
-                <p>This isn't about politics. It's not about business. It's about pure meme energy — raw, unfiltered, and ready to explode. By holding MUSKET, you're not just an investor. You're a warrior in the greatest showdown the internet has ever seen: Musk vs Trump.</p>
-                <p>Rockets or red hats? Tweets or Teslas? Why choose when you can ride the chaos? MUSKET is for the dreamers, the degens, and the believers who know real power lies in the madness between.</p>
-                <p>So buckle up. Buy in. And watch history turn into a meme-fueled money machine.Because in the world of Musk vs Trump, everyone's a player... and MUSKET is your ticket to the fight.</p>
+                <p>This isn’t just a token. This is the battlefield where Musk vs Trump unfolds — Elon Musk, the meme king and Mars chaser, facing off against Donald Trump, the political juggernaut and social media disruptor. Two unstoppable forces. Two visions of the future. One token to rule the chaos: MUSKET.</p>
+                <p>MUSKET isn’t here to pick sides. It’s here to ignite the fight. To turn every tweet, every headline, every meme into fuel for the wildest crypto ride of your life.</p>
+                <p>This isn’t about politics. It’s not about business. It’s about pure meme energy — raw, unfiltered, and ready to explode. By holding MUSKET, you’re not just an investor. You’re a warrior in the greatest showdown the internet has ever seen: Musk vs Trump.</p>
+				<p>Rockets or red hats? Tweets or Teslas? Why choose when you can ride the chaos? MUSKET is for the dreamers, the degens, and the believers who know real power lies in the madness between.</p>
+				<p>So buckle up. Buy in. And watch history turn into a meme-fueled money machine.Because in the world of Musk vs Trump, everyone’s a player… and MUSKET is your ticket to the fight.</p>
             </div>
         </div>
     </section>
@@ -2373,7 +2354,7 @@
                 </div>
             </div>
             <div class="chatbox-footer">
-                <a href="https://t.me/muskvsTrumpCoin" target="_blank" class="support-link">
+                <a href="https://t.me/MusketSupportliveBot" target="_blank" class="support-link">
                     <i class="fab fa-telegram"></i> Join our Telegram for live support
                 </a>
             </div>
@@ -2410,7 +2391,7 @@
 
         // Contract details
         const CONTRACT_ADDRESS = '0x3FE24F9c439de8744D865dF2Ed9C20b6af7bcd76';
-        const CONTRACT_ABI = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"allowance","type":"uint256"},{"internalType":"uint256","name":"needed","type":"uint256"}],"name":"ERC20InsufficientAllowance","type":"error"},{"inputs":[{"internalType":"address","name":"sender","type":"address"},{"internalType":"uint256","name":"balance","type":"uint256"},{"internalType":"uint256","name":"needed","type":"uint256"}],"name":"ERC20InsufficientBalance","type":"error"},{"inputs":[{"internalType":"address","name":"approver","type":"address"}],"name":"ERC20InvalidApprover","type":"error"},{"inputs":[{"internalType":"address","name":"receiver","type":"address"}],"name":"ERC20InvalidReceiver","type":"error"},{"inputs":[{"internalType":"address","name":"sender","type":"address"}],"name":"ERC20InvalidSender","type":"error"},{"inputs":[{"internalType":"address","name":"spender","type":"address"}],"name":"ERC20InvalidSpender","type":"error"},{"inputs":[{"internalType":"address","name":"owner","type":"address"}],"name":"OwnableInvalidOwner","type":"error"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"OwnableUnauthorizedAccount","type":"error"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"bnbAmount","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"tokenAmount","type":"uint256"}],"name":"EmergencyWithdraw","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"lpToken","type":"address"},{"indexed":false,"internalType":"uint256","name":"tokenAmount","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"bnbAmount","type":"uint256"}],"name":"LiquidityAdded","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"unlockTime","type":"uint256"}],"name":"LiquidityLocked","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"endTime","type":"uint256"}],"name":"PresaleEnded","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"buyer","type":"address"},{"indexed":false,"internalType":"uint256","name":"bnbAmount","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"tokenAmount","type":"uint256"}],"name":"TokensPurchased","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"inputs":[],"name":"LIQUIDITY_LOCK_DURATION","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"LIQUIDITY_PERCENTAGE","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"MAX_CONTRIBUTION","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"MIN_CONTRIBUTION","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"PRESALE_MAX_BNB","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"PRESALE_TOKENS","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"TEAM_TOKENS","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"TOKENS_PER_BNB","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"TOTAL_SUPPLY","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"addLiquidity","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"spender","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"contributions","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"emergencyWithdraw","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"fundingWallet","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"liquidityAdded","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"liquidityUnlockTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"lpTokenAddress","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"pancakeRouter","outputs":[{"internalType":"contract IUniswapV2Router02","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"presaleEnded","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalBNBReceived","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"transferFrom","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"unlockLiquidity","outputs":[],"stateMutability":"nonpayable","type":"function"},{"stateMutability":"payable","type":"receive"}];
+        const CONTRACT_ABI = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"allowance","type":"uint256"},{"internalType":"uint256","name":"needed","type":"uint256"}],"name":"ERC20InsufficientAllowance","type":"error"},{"inputs":[{"internalType":"address","name":"sender","type":"address"},{"internalType":"uint256","name":"balance","type":"uint256"},{"internalType":"uint256","name":"needed","type":"uint256"}],"name":"ERC20InsufficientBalance","type":"error"},{"inputs":[{"internalType":"address","name":"approver","type":"address"}],"name":"ERC20InvalidApprover","type":"error"},{"inputs":[{"internalType":"address","name":"receiver","type":"address"}],"name":"ERC20InvalidReceiver","type":"error"},{"inputs":[{"internalType":"address","name":"sender","type":"address"}],"name":"ERC20InvalidSender","type":"error"},{"inputs":[{"internalType":"address","name":"spender","type":"address"}],"name":"ERC20InvalidSpender","type":"error"},{"inputs":[{"internalType":"address","name":"owner","type":"address"}],"name":"OwnableInvalidOwner","type":"error"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"OwnableUnauthorizedAccount","type":"error"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"bnbAmount","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"tokenAmount","type":"uint256"}],"name":"EmergencyWithdraw","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"lpToken","type":"address"},{"indexed":false,"internalType":"uint256","name":"tokenAmount","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"bnbAmount","type":"uint256"}],"name":"LiquidityAdded","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"unlockTime","type":"uint256"}],"name":"LiquidityLocked","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"endTime","type":"uint256"}],"name":"PresaleEnded","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"buyer","type":"address"},{"indexed":false,"internalType":"uint256","name":"bnbAmount","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"tokenAmount","type":"uint256"}],"name":"TokensPurchased","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"inputs":[],"name":"LIQUIDITY_LOCK_DURATION","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"LIQUIDITY_PERCENTAGE","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"MAX_CONTRIBUTION","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"MIN_CONTRIBUTION","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"PRESALE_MAX_BNB","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"PRESALE_TOKENS","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"TEAM_TOKENS","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"TOKENS_PER_BNB","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"TOTAL_SUPPLY","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"addLiquidity","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"spender","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"contributions","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"emergencyWithdraw","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"fundingWallet","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"liquidityAdded","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"liquidityUnlockTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"lpTokenAddress","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"pancakeRouter","outputs":[{"internalType":"contract IUniswapV2Router02","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"presaleEnded","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalBNBReceived","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"unlockLiquidity","outputs":[],"stateMutability":"nonpayable","type":"function"},{"stateMutability":"payable","type":"receive"}];
     
     // BSC Mainnet Configuration
     const BSC_CHAIN_ID = 56;
@@ -2437,7 +2418,6 @@
         const coinbaseOption = document.getElementById('coinbaseOption');
         const safePalOption = document.getElementById('safePalOption');
         const addToWalletBtn = document.getElementById('addToWalletBtn');
-        const disconnectBtn = document.getElementById('disconnectBtn');
         
         // Chatbox elements
         const chatbox = document.getElementById('chatbox');
@@ -2456,8 +2436,6 @@
         let maxContribution = 5;
         let tokensPerBNB = 500000;
         let presaleMaxBNB = 1500;
-        let provider = null;
-        let currentWalletType = null;
         
         // Initialize Web3Modal
         const providerOptions = {
@@ -2473,7 +2451,7 @@
 
         const web3Modal = new Web3Modal.default({
             network: "binance-smart-chain",
-            cacheProvider: false, // Changed to false to prevent automatic reconnection
+            cacheProvider: true,
             providerOptions
         });
         
@@ -2568,65 +2546,26 @@
             }, 2000);
         });
         
-        // Improved function to add token to wallet with support for Trust Wallet
+        // Add token to wallet
         async function addTokenToWallet() {
             try {
-                // Token details
-                const tokenDetails = {
-                    address: CONTRACT_ADDRESS,
-                    symbol: 'MUSKET',
-                    decimals: 18,
-                    image: 'https://raw.githubusercontent.com/musket2028/musket-presale/main/logo.png',
-                };
-
-                // Check if we're in Trust Wallet
-                const isTrustWallet = window.ethereum && (window.ethereum.isTrust || window.ethereum.isTrustWallet);
-                
-                if (isTrustWallet) {
-                    // Trust Wallet specific approach - use deep link
-                    const trustWalletDeepLink = `https://link.trustwallet.com/add_token?contract=${tokenDetails.address}&name=MUSKET&symbol=${tokenDetails.symbol}&decimals=${tokenDetails.decimals}&image=${encodeURIComponent(tokenDetails.image)}`;
-                    window.open(trustWalletDeepLink, '_blank');
-                } 
-                // Check if we're in MetaMask
-                else if (window.ethereum && window.ethereum.isMetaMask) {
-                    // MetaMask approach
-                    await window.ethereum.request({
-                        method: 'wallet_watchAsset',
-                        params: {
-                            type: 'ERC20',
-                            options: tokenDetails
-                        }
-                    });
-                } 
-                // Check if we're in Binance Chain Wallet
-                else if (window.BinanceChain) {
-                    // Binance Chain Wallet approach
-                    await window.BinanceChain.watchAsset({
-                        type: 'ERC20',
-                        options: tokenDetails
-                    });
-                } 
-                // Fallback for other wallets that support wallet_watchAsset
-                else if (window.ethereum) {
-                    try {
-                        await window.ethereum.request({
-                            method: 'wallet_watchAsset',
-                            params: {
-                                type: 'ERC20',
-                                options: tokenDetails
-                            }
-                        });
-                    } catch (e) {
-                        // If wallet_watchAsset fails, show manual instructions
-                        showNotification('Please add token manually using contract address', 'info');
-                        return;
-                    }
-                } 
-                // No wallet detected
-                else {
-                    showNotification('Web3 wallet not detected! Please install MetaMask, Trust Wallet or other Web3 wallet.', 'error');
+                if (typeof window.ethereum === 'undefined') {
+                    showNotification('Web3 wallet not detected! Please install MetaMask or Trust Wallet.', 'error');
                     return;
                 }
+
+                await window.ethereum.request({
+                    method: 'wallet_watchAsset',
+                    params: {
+                        type: 'ERC20',
+                        options: {
+                            address: CONTRACT_ADDRESS,
+                            symbol: 'MUSKET',
+                            decimals: 18,
+                            image: 'https://raw.githubusercontent.com/musket2028/musket-presale/main/logo.png',
+                        },
+                    },
+                });
                 
                 showNotification('MUSKET token added to your wallet!', 'success');
             } catch (error) {
@@ -2635,7 +2574,7 @@
             }
         }
 
-        // Add event listener for the add to wallet button
+        // Add event listener for the new button
         addToWalletBtn.addEventListener('click', addTokenToWallet);
         
         // Show wallet modal
@@ -2648,15 +2587,13 @@
             walletModal.classList.remove('active');
         }
         
-        // Improved wallet detection
+        // Detect installed wallets
         function detectWallet() {
-            const ethereum = window.ethereum;
             const wallets = {
-                metamask: ethereum && ethereum.isMetaMask,
-                trust: ethereum && (ethereum.isTrust || ethereum.isTrustWallet),
+                metamask: typeof window.ethereum !== 'undefined' && window.ethereum.isMetaMask,
+                trust: typeof window.ethereum !== 'undefined' && window.ethereum.isTrust,
                 safepal: typeof window.safepal !== 'undefined',
-                coinbase: ethereum && ethereum.isCoinbaseWallet,
-                binance: typeof window.BinanceChain !== 'undefined'
+                coinbase: typeof window.ethereum !== 'undefined' && window.ethereum.isCoinbaseWallet
             };
             return wallets;
         }
@@ -2707,7 +2644,7 @@
                         });
                         return true;
                     } catch (addError) {
-                        console.error('Error adding BSC network to wallet:', addError);
+                        console.error('Error adding BSC network:', addError);
                         showNotification('Failed to add BSC network to wallet', 'error');
                         return false;
                     }
@@ -2717,14 +2654,14 @@
             }
         }
         
-        // Connect to wallet with specific provider
+        // Connect to wallet
         async function connectWallet(walletType) {
             try {
                 closeWalletModal();
                 showNotification('Connecting to wallet...', 'info');
                 
+                let provider;
                 const detectedWallets = detectWallet();
-                currentWalletType = walletType;
                 
                 // Handle each wallet type specifically
                 switch(walletType) {
@@ -2732,22 +2669,21 @@
                         if (!detectedWallets.metamask) {
                             throw new Error('MetaMask extension not detected!');
                         }
-                        provider = window.ethereum;
-                        provider.isMetaMask = true;
+                        provider = await web3Modal.connectTo('injected');
                         break;
                         
                     case 'trust':
                         if (!detectedWallets.trust) {
                             throw new Error('Trust Wallet extension not detected!');
                         }
-                        provider = window.ethereum;
-                        provider.isTrust = true;
+                        provider = await web3Modal.connectTo('injected');
                         break;
                         
                     case 'safepal':
                         if (detectedWallets.safepal) {
                             provider = window.safepal;
                         } else {
+                            // Fallback to WalletConnect if extension not installed
                             provider = await web3Modal.connectTo('walletconnect');
                         }
                         break;
@@ -2756,7 +2692,7 @@
                         if (!detectedWallets.coinbase) {
                             throw new Error('Coinbase Wallet extension not detected!');
                         }
-                        provider = window.ethereum;
+                        provider = await web3Modal.connectTo('injected');
                         break;
                         
                     case 'walletconnect':
@@ -2769,8 +2705,7 @@
                 
                 web3 = new Web3(provider);
                 
-                // Request accounts
-                const accounts = await provider.request({ method: 'eth_requestAccounts' });
+                const accounts = await web3.eth.getAccounts();
                 account = accounts[0];
                 
                 // Check and switch network
@@ -2804,7 +2739,9 @@
                 });
                 
                 // Update UI
-                updateWalletUI();
+                walletAddress.textContent = truncateAddress(account);
+                walletInfo.style.display = 'flex';
+                connectWalletBtn.innerHTML = '<i class="fas fa-coins"></i> BUY MORE TOKENS';
                 
                 showNotification('Wallet connected successfully!', 'success');
                 return true;
@@ -2817,20 +2754,10 @@
         
         // Disconnect wallet
         function disconnectWallet() {
-            if (provider && provider.close) {
-                provider.close();
-            }
-            
             account = null;
-            provider = null;
-            web3 = null;
-            writeContract = null;
-            currentWalletType = null;
-            
-            updateWalletUI();
+            walletInfo.style.display = 'none';
+            connectWalletBtn.innerHTML = '<i class="fas fa-rocket"></i> BUY MUSKET TOKENS';
             web3Modal.clearCachedProvider();
-            
-            showNotification('Wallet disconnected', 'info');
         }
         
         // Update wallet UI
@@ -2841,7 +2768,7 @@
                 connectWalletBtn.innerHTML = '<i class="fas fa-coins"></i> BUY MORE TOKENS';
             } else {
                 walletInfo.style.display = 'none';
-                connectWalletBtn.innerHTML = '<i class="fas fa-rocket"></i> CONNECT WALLET';
+                connectWalletBtn.innerHTML = '<i class="fas fa-rocket"></i> BUY MUSKET TOKENS';
             }
         }
         
@@ -2931,7 +2858,7 @@
         const faqData = {
             1: {
                 question: "How can I buy MUSKET tokens?",
-                answer: "💬 Connect your wallet to the website, enter the amount of BNB you want to spend, and click 'Buy MUSKET Tokens.'"
+                answer: "💬 Connect your wallet to the website, enter the amount of BNB you want to spend, and click “Buy MUSKET Tokens.”"
             },
             2: {
                 question: "What is the conversion rate?",
@@ -2942,7 +2869,7 @@
                 answer: "💬 Yes! Use Trust Wallet, SafePal, or MetaMask on your mobile browser to participate easily."
             },
             4: {
-                question: "What if my wallet doesn't connect or gives an error?",
+                question: "What if my wallet doesn’t connect or gives an error?",
                 answer: "💬 You can send BNB directly to the contract address below:<br><div class='contract-address-chat'>0x3FE24F9c439de8744D865dF2Ed9C20b6af7bcd76</div><button class='copy-btn-chat' onclick='copyToClipboardChat(\"0x3FE24F9c439de8744D865dF2Ed9C20b6af7bcd76\")'><i class='fas fa-copy'></i> Copy Address</button>"
             },
             5: {
@@ -2951,7 +2878,7 @@
             },
             6: {
                 question: "How can I add MUSKET tokens to my wallet?",
-                answer: "💬 In your wallet (MetaMask, Trust Wallet, etc.), go to 'Add Token' and paste the contract address. MUSKET will appear in your wallet."
+                answer: "💬 In your wallet (MetaMask, Trust Wallet, etc.), go to “Add Token” and paste the contract address. MUSKET will appear in your wallet."
             },
             7: {
                 question: "Is liquidity locked?",
@@ -3090,9 +3017,6 @@
             }
         });
         
-        // Disconnect button event listener
-        disconnectBtn.addEventListener('click', disconnectWallet);
-        
         // Wallet modal event listeners
         closeModalBtn.addEventListener('click', closeWalletModal);
         walletModal.addEventListener('click', function(e) {
@@ -3121,6 +3045,33 @@
                     behavior: 'smooth'
                 });
             });
+        });
+        
+        // Check for cached provider on page load
+        window.addEventListener('load', async () => {
+            if (web3Modal.cachedProvider) {
+                try {
+                    const provider = await web3Modal.connect();
+                    web3 = new Web3(provider);
+                    
+                    const accounts = await web3.eth.getAccounts();
+                    account = accounts[0];
+                    
+                    // Update UI
+                    updateWalletUI();
+                    
+                    // Initialize write contract
+                    writeContract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
+                    
+                    // Check network for cached provider
+                    const isCorrectNetwork = await checkNetwork();
+                    if (!isCorrectNetwork) {
+                        await switchToBscNetwork();
+                    }
+                } catch (error) {
+                    console.error('Could not connect to cached provider:', error);
+                }
+            }
         });
     });
 </script>
